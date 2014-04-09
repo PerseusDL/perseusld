@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title></title>
+        <meta name='Perseus-Sparql-Endpoint' content="http://localhost:3030/ds/query?query="/>
+        <link href="../src/css/annotations.css" rel="stylesheet" type="text/css"/>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="../src/js/annotations.js"></script>
+        <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Converter.js"></script>
+        <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Sanitizer.js"></script>
+        <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Editor.js"></script>
+        <script type="text/javascript">
+            $().ready(function() {
+                PerseusLD.query_text_annotations($("#annotation_query_results"));
+                $("#close_annotations_button").click(function() { $("#annotation_query_results").hide();});
+            });
+        </script>
+        <link href="" rel=""/>
+    </head>
+    <body>
+        <button id="annotation_query_button" style="display:none;"><img src="../src/img/annotations.png"/></button>
+        <div id="annotation_query_results" data-sbj="#data-contents" data-sbjclass='text' data-verb="http://www.w3.org/ns/oa#hasTarget" data-formatter="filter_text_annotations">
+                <div class="widgets clearfix"><button id="close_annotations_button">Close</button></div>
+                <div class="results passage"></div>
+                <div class="results text"></div>
+                <div class="results work"></div>
+        </div>
+        <div id="data" class="widget secondary">
+            <div class="header">
+                <a id="data-link" href="javascript:toggle('data')" class="toggle">hide</a>Data/Identifiers
+            </div>
+            <div id="data-contents" class="contents">
+                <div id="cts-passage-uri"
+                    resource="http://data.perseus.org/citations/urn:cts:greekLit:tlg0019.tlg006.perseus-eng1:685-708"
+                    typeof="http://lawd.info/ontology/Citation">
+                    <span class="data-label">Citation URI:</span>
+                    <a href="http://data.perseus.org/citations/urn:cts:greekLit:tlg0019.tlg006.perseus-eng1:685-708"
+                        >http://data.perseus.org/citations/urn:cts:greekLit:tlg0019.tlg006.perseus-eng1:685-708</a>
+                    <div id="cts-text-uri" typeof="http://lawd.info/ontology/WrittenWork"
+                        resource="http://data.perseus.org/texts/urn:cts:greekLit:tlg0019.tlg006.perseus-eng1"
+                        property="http://lawd.info/ontology/represents">
+                        <span class="data-label">Text URI:</span>
+                        <a href="http://data.perseus.org/texts/urn:cts:greekLit:tlg0019.tlg006"
+                            >http://data.perseus.org/texts/urn:cts:greekLit:tlg0019.tlg006</a>
+                        <div id="cts-work-uri" typeof="http://lawd.info/ontology/ConceptualWork"
+                            resource="http://data.perseus.org/texts/urn:cts:greekLit:tlg0019.tlg006"
+                            property="http://lawd.info/ontology/embodies">
+                            <span class="data-label">Work URI:</span>
+                            <a href="http://data.perseus.org/texts/urn:cts:greekLit:tlg0019.tlg006"
+                                >http://data.perseus.org/texts/urn:cts:greekLit:tlg0019.tlg006</a>
+                        </div>
+                        <div id="cts-catalog-uri" 
+                            resource="http://data.perseus.org/catalog/urn:cts:greekLit:tlg0013.tlg007.perseus-eng1" 
+                            property="http://www.w3.org/2000/01/rdf-schema#isDefinedBy">
+                            <span class="data-label">Catalog Record URI:</span>
+                            <a target="_blank"
+                                href="http://data.perseus.org/catalog/urn:cts:greekLit:tlg0013.tlg007.perseus-eng1"
+                                
+                                >http://data.perseus.org/catalog/urn:cts:greekLit:tlg0013.tlg007.perseus-eng1</a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

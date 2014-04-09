@@ -1,0 +1,107 @@
+#annotation_query_results {
+     border: 1px solid black;
+     position: fixed;
+     left: 56%;
+     padding: 5px;
+     background-color: #FFFF66;
+     display:none;
+     /** to keep the while underneath from bleeding through **/
+     min-height: 100px;
+     max-height: 400px;
+     overflow: auto;
+     resize: both;
+}
+
+
+#annotation_query_results div {
+    background-color: #FFFF66;
+}
+
+#close_annotations_button {
+    float: right;
+}
+
+.oac_annotation {
+     max-width: 400px;
+     border-bottom: 1px #888888 dashed;
+     margin-bottom: 2px;
+     padding-bottom: 2px;
+     background-color: #FFFF66;
+   
+}
+.elided {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+}
+
+.elided:after {
+    content:"Full Text";
+    float:right;
+    color: blue;
+}
+
+.elided.more {
+   overflow: auto;
+   text-overflow: auto;
+   white-space: normal;    
+}
+.elided.more:after {
+   content:"Close";
+   float:right;
+   color: blue;
+}
+
+.oac_target,.oac_target_label {
+    display: none;
+}
+
+.oac_motivation  {
+    display: none;
+}
+
+.oac_creator {
+    float: left;
+}
+
+.oac_annotatedAt {
+    float: right;
+}
+
+.oac_creator * {
+    display: inline;
+}
+
+.oac_annotation_uri {
+    display: none;
+}
+
+.label {
+    display: none;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.clearfix {display: inline-block;}
+* html .clearfix {height: 1%;}
+.clearfix {display: block;}
+.clear { clear:both; }
+
+.loading {
+	background-image:url('waiting.gif');
+	background-repeat: no-repeat;
+	height: 1.5em;	
+	width: 256px;
+}
+
+.passage:before {
+    content: '(P)';
+    font-size: small;
+    float: left;
+    padding-right: .25em;
+}

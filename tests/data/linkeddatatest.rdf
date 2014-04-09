@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:oac="http://www.openannotation.org/ns/" xmlns:cnt="http://www.w3.org/2008/content#">
+  <Annotation xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="http://localhost/annotations/urn:cite:perseus:mythcomm.10.1">
+    <hasTarget xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://data.perseus.org/citations/urn:cts:greekLit:tlg0019.tlg006:685-707"/>
+    <hasTarget xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://data.perseus.org/citations/urn:cts:greekLit:tlg0019.tlg006.perseus-eng1:685-707"/>
+    <hasBody xmlns="http://www.w3.org/ns/oa#">
+      <ContentAsText xmlns="http://www.w3.org/2008/content#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="http://data.perseus.org/collections/urn:cite:perseus:mythcomm.10.1/commentary">
+        <type xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://purl.org/dc/dcmitype/Text"/>
+        <format xmlns="http://purl.org/dc/elements/1.1/">text/plain</format>
+        <language xmlns="http://purl.org/dc/elements/1.1/">eng</language>
+        <chars xmlns="http://www.w3.org/2008/content#">In this passage, comic playwright Aristophanes parodies Hesiod’s Theogony by making a series of bizarre changes and additions to the genealogy that the ancient Greek audience would be familiar with. First, he creates an unlikely situation where birds, instead of deities talk down to humans. To add to the humor, the birds are there to tell the audience that humans are part of a weak and an unfortunate race that lives a dark life. Aristophanes increases the severity of the humans’ situation by juxtaposing it with that of the birds, which is characterized by immortality, ethereality and youth. The Greek audience may indeed acknowledge the humans’ inferiority as reality since they believed in their own mythologies, which portray humans as beings of low status. Thus, the kind of humor here is possibly a laugh-at-life humor, where people laugh at their own helplessness to bring relief to a situation that cannot be changed.
+The next comedic change that Aristophanes introduces is the order of the primordial deities. While Hesiod tells us that Eros came before Night, Aristophanes tells us that it is the reverse. The comic playwright is perhaps relying on the common understanding that nighttime implies sexual activities to poke fun at the fact that there cannot be Eros or love without the Night. The swap is also befitting since Aristophanes must create a setting in which the birds’ status can be raised. Night is created first because it represents the sky, a physically high position where the gods and birds live. Eros then springs from an egg, appropriate since he is the creator of birds. To show their superior lineage, the birds continuously boast about how their progenitors have wings like them. The emphasis on wings as proof of superior lineage is used to demonstrate the ridiculous logic of the birds and therefore create humor.
+Lastly, Aristophanes has the birds speak of the extent of their knowledge and power in an exaggerated manner to make this passage comical. When the birds talk about how much humans will know about the gods after listening to the birds, they claim that even the philosopher Prodicus will envy that knowledge. This cultural reference is funny because Prodicus is a famous philosopher respected even by Plato, so to the audience it must be absurd to think that their knowledge will surpass that of Prodicus. This parodic passage is concluded with an explicit and over the top description of the birds’ power to help lovers fulfill their sexual desires.</chars>
+      </ContentAsText>
+    </hasBody>
+    <annotatedBy xmlns="http://www.w3.org/ns/oa#">
+      <Person xmlns="http://xmlns.com/foaf/0.1/" 
+        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+        rdf:about="http://data.perseus.org/sosol/users/48">
+        <rdfs:label>Mary Smith</rdfs:label>
+      </Person>
+    </annotatedBy>
+    <motivatedBy xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://www.w3.org/ns/oa#commenting"/>
+    <annotatedAt xmlns="http://www.w3.org/ns/oa#">2013-09-28T22:16:44+00:00</annotatedAt>
+  </Annotation>
+  <Annotation xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="http://localhost/annotations/urn:cite:perseus:mythcomm.11.1">
+    <hasTarget xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://data.perseus.org/citations/urn:cts:greekLit:tlg0019.tlg006"/>
+    <hasTarget xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://data.perseus.org/citations/urn:cts:greekLit:tlg0019.tlg006.perseus-eng1"/>
+    <hasBody xmlns="http://www.w3.org/ns/oa#">
+      <ContentAsText xmlns="http://www.w3.org/2008/content#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="http://data.perseus.org/collections/urn:cite:perseus:mythcomm.11.1/commentary">
+        <type xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://purl.org/dc/dcmitype/Text"/>
+        <format xmlns="http://purl.org/dc/elements/1.1/">text/plain</format>
+        <language xmlns="http://purl.org/dc/elements/1.1/">eng</language>
+        <chars xmlns="http://www.w3.org/2008/content#">In this passage, comic playwright Aristophanes parodies Hesiod’s Theogony by making a series of bizarre changes and additions to the genealogy that the ancient Greek audience would be familiar with. First, he creates an unlikely situation where birds, instead of deities talk down to humans. To add to the humor, the birds are there to tell the audience that humans are part of a weak and an unfortunate race that lives a dark life. Aristophanes increases the severity of the humans’ situation by juxtaposing it with that of the birds, which is characterized by immortality, ethereality and youth. The Greek audience may indeed acknowledge the humans’ inferiority as reality since they believed in their own mythologies, which portray humans as beings of low status. Thus, the kind of humor here is possibly a laugh-at-life humor, where people laugh at their own helplessness to bring relief to a situation that cannot be changed.
+          The next comedic change that Aristophanes introduces is the order of the primordial deities. While Hesiod tells us that Eros came before Night, Aristophanes tells us that it is the reverse. The comic playwright is perhaps relying on the common understanding that nighttime implies sexual activities to poke fun at the fact that there cannot be Eros or love without the Night. The swap is also befitting since Aristophanes must create a setting in which the birds’ status can be raised. Night is created first because it represents the sky, a physically high position where the gods and birds live. Eros then springs from an egg, appropriate since he is the creator of birds. To show their superior lineage, the birds continuously boast about how their progenitors have wings like them. The emphasis on wings as proof of superior lineage is used to demonstrate the ridiculous logic of the birds and therefore create humor.
+          Lastly, Aristophanes has the birds speak of the extent of their knowledge and power in an exaggerated manner to make this passage comical. When the birds talk about how much humans will know about the gods after listening to the birds, they claim that even the philosopher Prodicus will envy that knowledge. This cultural reference is funny because Prodicus is a famous philosopher respected even by Plato, so to the audience it must be absurd to think that their knowledge will surpass that of Prodicus. This parodic passage is concluded with an explicit and over the top description of the birds’ power to help lovers fulfill their sexual desires.</chars>
+      </ContentAsText>
+    </hasBody>
+    <annotatedBy xmlns="http://www.w3.org/ns/oa#">
+      <Person xmlns="http://xmlns.com/foaf/0.1/" 
+        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+        rdf:about="http://data.perseus.org/sosol/users/48">
+        <rdfs:label>Mary Jones</rdfs:label>
+      </Person>
+    </annotatedBy>
+    <motivatedBy xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://www.w3.org/ns/oa#commenting"/>
+    <annotatedAt xmlns="http://www.w3.org/ns/oa#">2013-09-28T22:16:44+00:00</annotatedAt>
+  </Annotation>
+</rdf:RDF>
