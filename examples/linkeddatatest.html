@@ -11,7 +11,7 @@
         <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Editor.js"></script>
         <script type="text/javascript">
             $().ready(function() {
-                PerseusLD.query_text_annotations($("#annotation_query_results"));
+                PerseusLD.query_annotations($("#annotation_query_results"));
                 $("#close_annotations_button").click(function() { $("#annotation_query_results").hide();});
             });
         </script>
@@ -19,7 +19,12 @@
     </head>
     <body>
         <button id="annotation_query_button" style="display:none;"><img src="../src/img/annotations.png"/></button>
-        <div id="annotation_query_results" data-sbj="#data-contents" data-sbjclass='text' data-verb="http://www.w3.org/ns/oa#hasTarget" data-formatter="filter_text_annotations">
+        <div id="annotation_query_results" 
+            data-sbj="#data-contents" 
+            data-sbjclass='text' 
+            data-verb="http://www.w3.org/ns/oa#hasTarget" 
+            data-formatter="filter_text_annotations"
+            data-xslt="http://localhost/perseus_ldwidget/src/xslt/oactohtml.xsl">
                 <div class="widgets clearfix"><button id="close_annotations_button">Close</button></div>
                 <div class="results passage"></div>
                 <div class="results text"></div>

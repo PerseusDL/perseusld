@@ -7,11 +7,12 @@ PerseusLD.max_results = 1;
 PerseusLD.results = { "passage": [], "text": [], "work": [], "artifact": [] };
 
 /**
- * query_text_annotations operates on a div with the following attributes:
+ * query_annotations operates on a div with the following attributes:
  *    data-sbj: the css identifier of an element containing the subject of the query
  *    data-set: the uri of the data set to query 
  *    data-verb: the verb for the SPARQL query 
  *    data-formatter: the name of a javascript function in the PerseusLD namespace to use to format
+ *    data-xslt: url to the xslt transformation for the query results
  *    data-sbjclass: the type of object the subject is (currently supported: 'text' and 'object')
  *        for class of 'text', the widget expects elements with the following rdf-a key/value pairs to be in the element
  *        identified by data-sbj:
@@ -20,32 +21,40 @@ PerseusLD.results = { "passage": [], "text": [], "work": [], "artifact": [] };
  *             @typeof ==  http://lawd.info/ontology/Citation and @resource == passage_uri
  *
  *        for class of 'object', the widget expects an element with the id perseus-object-uri on the page
+ *             @typeof == http://www.cidoc-crm.org/cidoc-crm/E22_Man-Made_Object and @resource == artifact uri
+ *             or
+ *             @typeof == http://www.cidoc-crm.org/cidoc-crm/E53_Place @resource== artifact_uri
  *              
  */
-PerseusLD.query_text_annotations  = function(a_query_elem) {
-    var sbj_elem = $($(a_query_elem).attr("data-sbj"));
-    var cts_work = $("*[typeof='http://lawd.info/ontology/ConceptualWork']",sbj_elem);
-    if (cts_work.length == 0) {
-        return;
-    } else {
-        cts_work = cts_work.attr("resource");
+PerseusLD.query_annotations  = function(a_query_elem) {
+
+    // setup the transform
+    PerseusLD.xslt_url = $(a_query_elem).attr("data-xslt");
+
+    var sbj_elemname = $($(a_query_elem).attr("data-sbj"));
+    // look for a work as the subject
+    var sbj_elem = $("*[typeof='http://lawd.info/ontology/ConceptualWork']",sbj_elemname);
+    if (sbj_elem.length == 0) {
+        // work not found, try for a man-made object 
+        sbj_elem = $("*[typeof='http://www.cidoc-crm.org/cidoc-crm/E22_Man-Made_Object']",sbj_elemname);
     }
+    if (sbj_elem.length == 0) {
+        // work and man-made object not found, try for a place
+        sbj_elem = $("*[typeof='http://www.cidoc-crm.org/cidoc-crm/E53_Place']",sbj_elemname);
+    }
+    if (sbj_elem.length == 0) {
+        // okay, nothing found to query on, just return
+    }
+    
     // remove the uri prefix - let's work just with the URNs to keep it simple
     var queryuri = $("meta[name='Perseus-Sparql-Endpoint']").attr("content");
     var verb = $(a_query_elem).attr("data-verb");
 	var dataset = $(a_query_elem).attr("data-set");
 	var formatter = $(a_query_elem).attr("data-formatter");
 	var datatype = $(a_query_elem).attr("data-sbjclass");
-    var sbj;
-    if (datatype == 'text') {
-        // we want to query on the conceptual work
-        
-        sbj = PerseusLD.strip_uri_prefix(cts_work);   
-    } else {
-        
-    }
-
-
+	// need to use quote meta to escape the uri because it could contain regex protected chars like + 
+    var sbj = "\\\\Q" + PerseusLD.strip_uri_prefix(sbj_elem.attr("resource")) + "\\\\E";   
+    
     var dataset_query = "";
 	if (dataset) {
 	   dataset_query = "from <" + dataset + "> "
@@ -76,6 +85,23 @@ PerseusLD.query_text_annotations  = function(a_query_elem) {
     }	
 };
 
+PerseusLD.filter_artifact_annotations = function(a_elem,a_results) {
+    var annotations = { "artifact": []};
+    var num_results = a_results.length;
+	if (num_results == 0) {
+	   $(a_elem).append('<p>No Annotations Found</p>').removeClass("loading");
+	} else if(num_results > 0) {
+		for (var i=0; i<num_results; i++) {
+		  PerseusLD.results.artifact.push(a_results[i].annotation.value);
+		}
+	    $("#annotation_query_button").click(function() { PerseusLD.show_annotations('artifact',a_elem,0);});
+	    $("#annotation_query_button").show();
+    } else {
+        // hide the button, just for good measure
+        $("#annotation-query-button").hide();
+    }
+};
+
 PerseusLD.filter_text_annotations = function(a_elem,a_results) { 
     var sbj_elem = $($(a_elem).attr("data-sbj"));
     var cts_work = $("*[typeof='http://lawd.info/ontology/ConceptualWork']",sbj_elem);
@@ -87,7 +113,7 @@ PerseusLD.filter_text_annotations = function(a_elem,a_results) {
     var work_uri_regex = "^" + work_uri + "$";
     var version_passage_start = null;
     var version_passage_end = null;
-    var annotations = { "work": [], "text" : [], "passage" : [], "artifact": []};
+    var annotations = { "work": [], "text" : [], "passage" : []};
     
     // extract the starting passage of the displayed text version
     if (cts_passage.length > 0) {
@@ -227,8 +253,7 @@ PerseusLD.fail_annotation = function(a_elem,a_is_last) {
 PerseusLD.transform_annotation = function(a_xml,a_elem,a_is_last,a_next) {
     var xsltProcessor = new XSLTProcessor();
     // TODO this transform should show the target if it's different than the passage
-	var xslt_url = "http://localhost/xslt/oactohtml.xsl"
-	$.get(xslt_url,
+	$.get(PerseusLD.xslt_url,
 	   function(a_data,a_status,a_req) {
 	       xsltProcessor.importStylesheet(a_data);
 	       PerseusLD.add_annotation(xsltProcessor,a_xml,a_elem,a_is_last,a_next);
