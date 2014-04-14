@@ -50,13 +50,14 @@
           		    <div class="annotation clearfix">
           		        <xsl:apply-templates select="oac:hasBody"/>
           		    </div>
-          		    <div class="metadata clearfix">
+          		    <xsl:variable name="target">
+          		        <xsl:apply-templates select="oac:hasTarget"/>
+          		    </xsl:variable>
+          		    <div class="metadata clearfix" title="Annotation on {$target}">
                          	<xsl:apply-templates select="oac:annotatedAt"/>
                           <xsl:apply-templates select="oac:annotatedBy"/>
                  		    <xsl:apply-templates select="rdfs:label"/>
                  		    <xsl:apply-templates select="oac:motivatedBy"/>
-                 		    <div class="oac_target_label label">On:</div>
-                 		    <xsl:apply-templates select="oac:hasTarget"/>
           		    </div>          		
           		</div>
             </body>
@@ -64,11 +65,7 @@
     </xsl:template>
     
     <xsl:template match="oac:hasTarget">
-        <div class="oac_target">
-            <a href="{@rdf:resource}" rel="oac:hasTarget">
-                <xsl:value-of select="@rdf:resource"/>
-            </a>
-        </div>
+        <xsl:value-of select="@rdf:resource"/><xsl:text> </xsl:text> 
     </xsl:template>
     
     <xsl:template match="oac:hasBody">

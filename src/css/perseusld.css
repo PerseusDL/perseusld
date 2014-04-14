@@ -52,10 +52,6 @@
    color: blue;
 }
 
-.oac_target,.oac_target_label {
-    display: none;
-}
-
 .oac_motivation  {
     display: none;
 }
@@ -99,9 +95,3 @@
 	width: 256px;
 }
 
-.passage:before {
-    content: '(P)';
-    font-size: small;
-    float: left;
-    padding-right: .25em;
-}
