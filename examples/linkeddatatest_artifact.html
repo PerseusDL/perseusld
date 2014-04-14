@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title></title>
-        <meta name='Perseus-Sparql-Endpoint' content="http://localhost:3030/ds/query?query="/>
-        <link href="../src/css/perseusld.css" rel="stylesheet" type="text/css"/>
+        <meta name='perseusld_SparqlEndpoint' content="http://localhost:3030/ds/query?query="/>
+        <link href="css/example.css" rel="stylesheet" type="text/css"/>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="../src/js/perseusld.js"></script>
         <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Converter.js"></script>
@@ -12,7 +12,6 @@
         <script type="text/javascript">
             $().ready(function() {
                 PerseusLD.query_annotations($("#annotation_query_results"));
-                $("#close_annotations_button").click(function() { $("#annotation_query_results").hide();});
             });
         </script>
         <link href="" rel=""/>
@@ -20,13 +19,15 @@
     <body>
         <button id="annotation_query_button" style="display:none;"><img src="../src/img/annotations.png"/></button>
         <div id="annotation_query_results" 
+            data-activator="#annotation_query_button"
+            data-serialization="oac"
             data-sbj="#data-contents" 
             data-sbjclass='object' 
             data-verb="http://www.w3.org/ns/oa#hasTarget" 
             data-formatter="filter_artifact_annotations"
             data-xslt="http://localhost/perseus_ldwidget/src/xslt/oactohtml.xsl">
-                <div class="widgets clearfix"><button id="close_annotations_button">Close</button></div>
-                <div class="results artifact"></div>
+                <div class="widgets clearfix"><button class="perseusld_close" id="close_annotations_button">Close</button></div>
+                <div class="perseusld_results perseusld_artifact"></div>
         </div>
         <div id="data" class="widget secondary">
             <div class="header">
