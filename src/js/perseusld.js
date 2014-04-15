@@ -119,7 +119,7 @@ PerseusLD.query_md_annotations  = function(a_query_elem) {
 	//------------------------------------------------------------
 	//  add the close handler
 	//------------------------------------------------------------
-	jQuery(".perseusld_close").click(function() { jQuery(a_query_elem).hide();});
+	jQuery(".perseusld_close").on( 'touchstart click', function() { jQuery(a_query_elem).hide(); });
 	//------------------------------------------------------------
 	//  remove the uri prefix - let's work just with the URNs 
 	//  to keep it simple
@@ -139,27 +139,27 @@ PerseusLD.query_md_annotations  = function(a_query_elem) {
 		dataset_query = "from <" + dataset + "> "
 	}
 	//------------------------------------------------------------
-	// retrieve all annotations from the requested set for this work
+	// Retrieve all annotations from the requested set for this work
 	// TODO eventually we will want to separate this out by annotation/collection type 
 	// TODO sort by ?date
 	//------------------------------------------------------------
 	if ( queryuri && sbj && verb ) {
+		//------------------------------------------------------------
+		//  The SPARQL annotation query
+		//------------------------------------------------------------
 		var query = "\
 			SELECT distinct ?annotation ?target ?who "+ dataset_query + "\
 	    	WHERE { ?annotation "  + "<"  + verb + "> ?target.\
-			FILTER regex(str(?target), \"" + sbj + "\").\
-			?annotation <http://www.w3.org/ns/oa#annotatedBy> ?who}\
+				FILTER regex( str(?target), \"" + sbj + "\").\
+				?annotation <http://www.w3.org/ns/oa#annotatedBy> ?who\
+			}\
 		";
-		
+		//------------------------------------------------------------
+		//  Issue the query and get the results
+		//------------------------------------------------------------
 		jQuery.get( queryuri + encodeURIComponent( query ) + "&format=json")
-		.done( function(data) {
-			var results = [];
-			if (data.results.bindings.length > 0) {
-				jQuery.each(data.results.bindings, function(i, row) {
-					results.push(row);
-				})
-			}
-			PerseusLD[formatter](jQuery(a_query_elem),results);
+		.done( function( _data ) {
+			PerseusLD.sparql_results( _data, a_query_elem, formatter );
 		})
 		.fail(
 			function(){
@@ -168,6 +168,25 @@ PerseusLD.query_md_annotations  = function(a_query_elem) {
 		);
     }	
 };
+
+/**
+ * Retrieve SPARQL query results and fo
+ *
+ * @param {obj} _data jQuery.get().done response object
+ * @param {string} _elem jQuery select string for the dom element with the config attributes
+ * @param {string} _formatter The data formatter 
+ *		( "filter_text_annotations" or "filter_artifact_annotations" )
+ *
+*/
+PerseusLD.sparql_results = function( _data, _elem, _formatter ) {
+	var results = [];
+	if ( _data.results.bindings.length > 0) {
+		jQuery.each( _data.results.bindings, function(i, row) {
+			results.push(row);
+		});
+	}
+	PerseusLD[_formatter]( jQuery( _elem ),results );
+}
 
 /**
  * Appends all results of the SPARQL query to the specified element
@@ -354,56 +373,63 @@ PerseusLD.filter_text_annotations = function(a_elem,a_results) {
  * @param a_start the starting index of the result
  */
 PerseusLD._show_annotations = function( a_type, a_elem, a_start ) {
-    var activator = jQuery(a_elem).attr("data-activator");
-    var format = jQuery(a_elem).attr("data-serialization");
-    var max_results = jQuery(a_elem).attr("data-pagemax");
-    //------------------------------------------------------------
-    //  if we haven't been given a paging max, show all the results
-    //------------------------------------------------------------
-    if (! max_results || max_results == '') {
-        max_results = PerseusLD.results[a_type].length;
-    }
-    //------------------------------------------------------------
-    // make sure we don't have any old results loaded
-    //------------------------------------------------------------
-    if (a_start == 0) {
-        jQuery(".perseusld_results.perseusld_"+a_type,a_elem).children().remove();
-    } 
+	var activator = jQuery(a_elem).attr("data-activator");
+	var format = jQuery(a_elem).attr("data-serialization");
+	var max_results = jQuery(a_elem).attr("data-pagemax");
+	//------------------------------------------------------------
+	//  if we haven't been given a paging max, show all the results
+	//------------------------------------------------------------
+	if (! max_results || max_results == '') {
+		max_results = PerseusLD.results[a_type].length;
+	}
+	//------------------------------------------------------------
+	// make sure we don't have any old results loaded
+	//------------------------------------------------------------
+	if (a_start == 0) {
+		jQuery(".perseusld_results.perseusld_"+a_type,a_elem).children().remove();
+	} 
 	else {
-        //------------------------------------------------------------
-        //  we've come from a click on the more button so remove it for now
-        //------------------------------------------------------------
-        jQuery(".perseusld_results.perseusld_"+a_type+" .more_annotations",a_elem).hide();
-    }
-    jQuery(activator).addClass("clicked");
-    jQuery(".perseusld_results.perseusld_"+a_type,a_elem).addClass("loading");
-    jQuery(a_elem).show();
-    var end = a_start + max_results -1;
-    if (end > PerseusLD.results[a_type].length - 1) {
+		//------------------------------------------------------------
+		//  we've come from a click on the more button so remove it for now
+		//------------------------------------------------------------
+		jQuery(".perseusld_results.perseusld_"+a_type+" .more_annotations",a_elem).hide();
+	}
+	jQuery(activator).addClass("clicked");
+	jQuery(".perseusld_results.perseusld_"+a_type,a_elem).addClass("loading");
+	jQuery(a_elem).show();
+	var end = a_start + max_results -1;
+	if (end > PerseusLD.results[a_type].length - 1) {
 		end = PerseusLD.results[a_type].length - 1;
-    }
+	}
     for (var i=a_start; i<=end; i++) {
-		// flags to indicate if on last and if there are any more to show
+		//------------------------------------------------------------
+		//  flags to indicate if on last and if there are any more to show
+		//------------------------------------------------------------
 		var next = null;
 		var last = ( i == end );
 		if (last && end < PerseusLD.results[a_type].length - 1) {
-		    next = end + 1;        
+			next = end + 1;        
 		}
-        	jQuery.ajax(PerseusLD.results[a_type][i]+"/" + format,
-       	    {
-       	        type: 'GET',
-       	        xhrFields: {data: {"last":last, "next":next, "type":a_type}},
-       	        processData: false
-       	    })
-			.done(function(a_data,a_status,a_req) { 
-				PerseusLD._transform_annotation(a_data,jQuery(".perseusld_results.perseusld_"+a_type,a_elem),this.xhrFields.data);    
-       	    })
-			.fail(
-				function(a_req) { 
-					PerseusLD._fail_annotation(jQuery(".perseusld_results.perseusld_"+a_type,a_elem),this.xhrFields.data.last)
-				}
-       	    );
-     }
+		//------------------------------------------------------------
+		//  Send the request
+		//------------------------------------------------------------
+		jQuery.ajax( 
+			PerseusLD.results[a_type][i]+"/" + format,
+			{
+				type: 'GET',
+				xhrFields: {data: {"last":last, "next":next, "type":a_type}},
+				processData: false
+			}
+		)
+		.done( function( a_data, a_status, a_req ) { 
+			var elem = jQuery( ".perseusld_results.perseusld_"+a_type,a_elem );
+			PerseusLD._transform_annotation( a_data, elem,this.xhrFields.data );
+		})
+		.fail( function( a_req ) { 
+			var elem = jQuery( ".perseusld_results.perseusld_"+a_type,a_elem );
+			PerseusLD._fail_annotation( elem, this.xhrFields.data.last );
+		});
+	 }
 }
 
 /**
