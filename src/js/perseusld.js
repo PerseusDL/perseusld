@@ -1,3 +1,9 @@
+/**
+ * Currently has dependencies on:
+ *     JQuery
+ *     Pagedown: Markdown.SanitizingConverter
+ *  TODO: decide on approach to including dependencies (github submodules, requirejs, etc)
+ */
 var PerseusLD;
 
 PerseusLD = PerseusLD || {};
@@ -5,8 +11,10 @@ PerseusLD = PerseusLD || {};
 PerseusLD.results = { "passage": [], "text": [], "work": [], "artifact": [] };
 
 /**
- * The PerseusLD annotations widget executions a simple SOV SPARQL query and populates the page with a 
- * sorted set of the results.
+ * The PerseusLD query_md_annotations widget executes a simple SOV SPARQL query and populates 
+ * the page with a sorted set of the results. The results are expected to be OA annotations 
+ * which have one or more annotation targets uris and an inline annotation body composed of 
+ * markdown text. 
  * 
  * The HTML page containing the widget is expected to have a <meta/> element with the id 
  * persusld_SparqlEndpoint that identifies the location of the sparql endpoint as the value of its content
@@ -14,11 +22,14 @@ PerseusLD.results = { "passage": [], "text": [], "work": [], "artifact": [] };
  *
  *  <meta name='perseusld_SparqlEndpoint' content="http://localhost:3030/ds/query?query="/>
  *  
- * To activate the PerseusLD annotations widget, call the query_annotations function on an 
+ * To activate the PerseusLD annotations widget, call the query_md_annotations function on an 
  * element which contains the following attributes:
  * 
  *    data-activator: the css selector for a UI element to which the plugin will apply a 
  *                    a click handler will show/hide the results. If no results are found it will be hidden.
+ *    data-resourceurl: the base url at which the PerseusLD code is deployed
+ *    data-serialization: a post-fix path to append to the annotation uri in the results to request a 
+ *                        specific output format 
  *    data-pagemax: optional attribute to set maximum results to show on the page per result type
  *                  (the formatter must support paging)
  *    data-set: the uri of the data set to query 
@@ -27,9 +38,6 @@ PerseusLD.results = { "passage": [], "text": [], "work": [], "artifact": [] };
  *                    to use to format the results. Two default functions are supplied with the widget:
  *                    PerseusLD.filter_text_annotations and PerseusLD.filter_artifact_annotations
  *                    the formatter should accept 2 arguments: the query element and the results array
- *    data-xslt: url to an xslt transformation to apply to individual objects in the query resultset
- *    data-serialization: a post-fix path to append to the annotation uri in the results to request a 
- *                        specific output format 
  *    data-sbj: the css selector of an element containing the subject of the query
  *    data-sbjclass: the class of the subject (currently supported: 'text' and 'object')
  *        the widget expects a child element of the subject element (as identified by @data-sbj) with 
@@ -49,7 +57,7 @@ PerseusLD.results = { "passage": [], "text": [], "work": [], "artifact": [] };
  *             http://lawd.info/ontology/WrittenWork 
  *             http://lawd.info/ontology/Citation
  * 
- *  The element on which query_annotations is activated should contain the following required
+ *  The element on which query_md_annotations is activated should contain the following required
  *  child elements:
  * 
  *     1. an element with the class perseusld_close to which a click handler to hide the element
@@ -62,10 +70,10 @@ PerseusLD.results = { "passage": [], "text": [], "work": [], "artifact": [] };
  *         perseusld_passage   (all passage-specific (i.e. lawd:Citation) results)
  * 
  */
-PerseusLD.query_annotations  = function(a_query_elem) {
+PerseusLD.query_md_annotations  = function(a_query_elem) {
 
     // setup the transform
-    PerseusLD.xslt_url = $(a_query_elem).attr("data-xslt");
+    PerseusLD.xslt_url = $(a_query_elem).attr("data-resourceurl") + "/xslt/oactohtml.xsl";
 
     var sbj_elemname = $($(a_query_elem).attr("data-sbj"));
     // look for a work as the subject
@@ -312,13 +320,13 @@ PerseusLD._show_annotations = function(a_type,a_elem,a_start) {
         	$.ajax(PerseusLD.results[a_type][i]+"/" + format,
        	    {
        	        type: 'GET',
-       	        xhrFields: {data: {"last":last, "next":next}},
+       	        xhrFields: {data: {"last":last, "next":next, "type":a_type}},
        	        processData: false
        	    }).done(function(a_data,a_status,a_req) { 
-       	        PerseusLD._transform_annotation(a_data,$(".perseusld_results.perseusld_"+a_type,a_elem),this.xhrFields.data.last,this.xhrFields.data.next);    
+       	        PerseusLD._transform_annotation(a_data,$(".perseusld_results.perseusld_"+a_type,a_elem),this.xhrFields.data);    
        	    }).fail(
        	        function(a_req) { 
-       	            PerseusLD._fail_annotation($(".perseusld_results.perseusld_"+a_type,a_elem),a_req.data.last)
+       	            PerseusLD._fail_annotation($(".perseusld_results.perseusld_"+a_type,a_elem),this.xhrFields.data.last)
        	        }
        	    );
      }
@@ -355,10 +363,13 @@ PerseusLD._fail_annotation = function(a_elem,a_is_last) {
  * the xslt processor first
  * @param a_xml the xml to transform
  * @param a_elem the element to hold the transformed output
- * @param a_is_last flag to indicate if this is the last transformation
- * @param a_next index of the next result
+ * @param a_options key value pairs 
+ *      { 'last' : boolean flag to indicate if this is the last transformation,
+ *        'next': int index of the next result,
+ *        'type' : target type ('text','passage','work','artifact')
+ *       } 
  */
-PerseusLD._transform_annotation = function(a_xml,a_elem,a_is_last,a_next) {
+PerseusLD._transform_annotation = function(a_xml,a_elem,a_opts) {
     // load the xslt processor if we haven't already)
     if ( PerseusLD.xslt_processor == null) {
         // TODO this transform should show the target if it's different than the passage
@@ -366,13 +377,13 @@ PerseusLD._transform_annotation = function(a_xml,a_elem,a_is_last,a_next) {
     	   function(a_data,a_status,a_req) {
     	       PerseusLD.xslt_processor = new XSLTProcessor();    
     	       PerseusLD.xslt_processor.importStylesheet(a_data);
-    	       PerseusLD._add_annotation(PerseusLD.xslt_processor,a_xml,a_elem,a_is_last,a_next);
+    	       PerseusLD._add_annotation(PerseusLD.xslt_processor,a_xml,a_elem,a_opts);
     	   },
            'xml'
         );
     // otherwise just pass to _add_annotation
     } else {
-        PerseusLD._add_annotation(PerseusLD.xslt_processor,a_xml,a_elem,a_is_last,a_next);
+        PerseusLD._add_annotation(PerseusLD.xslt_processor,a_xml,a_elem,a_opts);
     }
     
     
@@ -383,34 +394,36 @@ PerseusLD._transform_annotation = function(a_xml,a_elem,a_is_last,a_next) {
  * @param a_processor the xslt processor
  * @param a_xml the xml of the annotation
  * @param a_elem the element to hold the results
- * @param a_is_last boolean flag to indicate if this is the last result to be added
- * @param a_next index of the next result
+ * @param a_options key value pairs 
+ *      { 'last' : boolean flag to indicate if this is the last transformation,
+ *        'next': int index of the next result,
+ *        'type' : target type ('text','passage','work','artifact')
+ *       } 
  */
-PerseusLD._add_annotation = function(a_processor,a_xml,a_elem,a_is_last,a_next) {
+PerseusLD._add_annotation = function(a_processor,a_xml,a_elem,a_opts) {
     var html = a_processor.transformToDocument(a_xml);
     var node = document.importNode($('div',html).get(0));
     var converter = new Markdown.getSanitizingConverter();
     var textElem = $(".oac_cnt_chars",node).get(0);
     var ptext = converter.makeHtml($(textElem).html());
     $(textElem).html(ptext);
-    //$(textElem).addClass(a_typeclass);
-    $("*:first-child",textElem).addClass('elided').click(PerseusLD.toggle_elided);
+    $("*:first-child",textElem).addClass('perseusld_elided').click(PerseusLD._toggle_elided);
     a_elem.append(node);
-    if (a_is_last) {
+    if (a_opts.last) {
         $(a_elem).removeClass("loading");
-        if (a_next != null) {
+        if (a_opts.next != null) {
             $(a_elem).append("<button class=\"perseusld_more_annotations\">More</button>");
-            $(".perseusld_more_annotations",a_elem).click(function() { PerseusLD.show_text_annotations($(a_elem).parent(),a_next);});
+            $(".perseusld_more_annotations",a_elem).click(function() { $(this).remove(); PerseusLD._show_annotations(a_opts.type,$(a_elem).parent(),a_opts.next);});
         }
     }
 }
 
 /**
  * Helper method to toggle an elided result
- * toggles the "more" class
+ * toggles the "perseusld_fulltext" class to expand the elision
  */
 PerseusLD._toggle_elided = function() {
-    $(this).toggleClass('more');
+    $(this).toggleClass('perseusld_fulltext');
 }
 
 /**

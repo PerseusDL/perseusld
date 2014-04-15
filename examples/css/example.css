@@ -29,28 +29,7 @@
      background-color: #FFFF66;
    
 }
-.elided {
-   overflow: hidden;
-   text-overflow: ellipsis;
-   white-space: nowrap;
-}
 
-.elided:after {
-    content:"Full Text";
-    float:right;
-    color: blue;
-}
-
-.elided.more {
-   overflow: auto;
-   text-overflow: auto;
-   white-space: normal;    
-}
-.elided.more:after {
-   content:"Close";
-   float:right;
-   color: blue;
-}
 
 .oac_motivation  {
     display: none;

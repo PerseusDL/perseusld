@@ -24,27 +24,6 @@
     </xsl:template>
     
     <xsl:template match="oac:Annotation">
-        <html>
-            <head>
-                <title>Annotation:<xsl:value-of select="@rdf:about"/></title>
-                <link href="http://sosol.perseids.org/sosol/stylesheets/perseus.css" rel="stylesheet" type="text/css"/>
-                <link href="http://sosol.perseids.org/sosol/stylesheets/pagedown.css" rel="stylesheet" type="text/css"/>
-                <link href="/home/balmas/workspace/reading-trunk/static/css/annotations.css" rel="stylesheet" type="text/css"/>
-                <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-                <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Converter.js"></script>
-                <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Sanitizer.js"></script>
-                <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Editor.js"></script>
-                <script type="text/javascript">
-                    $().ready( function() {
-                        var converter = new Markdown.getSanitizingConverter();
-                        var textElem = $(".oac_cnt_chars")[0];
-                        var ptext = converter.makeHtml(textElem.html());
-                        textElem.html(ptext);
-                        $("*:first-child",textElem).addClass('elided').click(function() {$(this).toggleClass('more')});        
-                    });
-                </script>
-            </head>
-            <body>
           		<div class="oac_annotation" about="{@rdf:about}" typeof="oac:Annotation">
           		    <div class="oac_annotation_uri"><span class="label">Annotation:</span><xsl:value-of select="@rdf:about"/></div>
           		    <div class="annotation clearfix">
@@ -60,8 +39,6 @@
                  		    <xsl:apply-templates select="oac:motivatedBy"/>
           		    </div>          		
           		</div>
-            </body>
-        </html>
     </xsl:template>
     
     <xsl:template match="oac:hasTarget">

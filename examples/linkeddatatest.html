@@ -4,6 +4,7 @@
         <title></title>
         <meta name='perseusld_SparqlEndpoint' content="http://localhost:3030/ds/query?query="/>
         <link href="css/example.css" rel="stylesheet" type="text/css"/>
+        <link href="../src/css/perseusld.css" rel="stylesheet" type="text/css"/>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="../src/js/perseusld.js"></script>
         <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Converter.js"></script>
@@ -11,7 +12,7 @@
         <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Editor.js"></script>
         <script type="text/javascript">
             $().ready(function() {
-                PerseusLD.query_annotations($("#annotation_query_results"));
+                PerseusLD.query_md_annotations($("#annotation_query_results"));
             });
         </script>
         <link href="" rel=""/>
@@ -25,8 +26,8 @@
             data-sbjclass='text' 
             data-verb="http://www.w3.org/ns/oa#hasTarget" 
             data-formatter="filter_text_annotations"
-            data-pagemax="10"
-            data-xslt="http://localhost/perseus_ldwidget/src/xslt/oactohtml.xsl">
+            data-pagemax="1"
+            data-resourceurl="http://localhost/perseus_ldwidget/src">
                 <div class="widgets clearfix"><button class="perseusld_close" id="close_annotations_button">Close</button></div>
                 <div class="perseusld_results perseusld_passage"></div>
                 <div class="perseusld_results perseusld_text"></div>
