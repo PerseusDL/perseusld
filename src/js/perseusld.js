@@ -21,6 +21,9 @@ PerseusLD.results = { "passage": [], "text": [], "work": [], "artifact": [] };
  * attribute. E.g.
  *
  *  <meta name='perseusld_SparqlEndpoint' content="http://localhost:3030/ds/query?query="/>
+ *
+ * You should also include links to the css/perseus_ld.css stylesheet and javascript library
+ * dependencies in the head of your HTML page. (See note at the top of this file about dependencies).  
  *  
  * To activate the PerseusLD annotations widget, call the query_md_annotations function on an 
  * element which contains the following attributes:
