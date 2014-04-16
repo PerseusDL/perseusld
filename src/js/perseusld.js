@@ -471,10 +471,10 @@ PerseusLD._strip_uri_prefix = function(a_str) {
  * @param a_elem the results display element
  * @param a_is_last boolean flag to indicate if this is the last annotation to be retrieved
  */
-PerseusLD._fail_annotation = function(a_elem,a_is_last) {
-    if (a_is_last) {
-        jQuery(a_elem).removeClass("loading");
-    }
+PerseusLD._fail_annotation = function( a_elem, a_is_last) {
+	if (a_is_last) {
+		jQuery(a_elem).removeClass("loading");
+	}
 }
 
 /**
@@ -534,7 +534,7 @@ PerseusLD._add_annotation = function( a_processor, a_xml, a_elem, a_opts) {
 	var ptext = converter.makeHtml(jQuery(textElem).html());
 	
 	jQuery( textElem ).html( ptext );
-	jQuery( "*:first-child", textElem ).addClass( 'perseusld_elided' ).on( 'touchstart click', PerseusLD._toggle_elided );
+//	jQuery( "*:first-child", textElem ).addClass( 'perseusld_elided' ).on( 'touchstart click', PerseusLD._toggle_elided );
 	a_elem.append( node );
 	if (a_opts.last) {
 		jQuery(a_elem).removeClass("loading");

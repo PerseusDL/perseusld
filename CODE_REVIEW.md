@@ -36,9 +36,11 @@ The fix was to pass 'xml' explicitly as the dataType to the jQuery.ajax() method
 
 # Events?
 Why not announce events?  Other tools might want to know when this widget changes.
+This widget uses ajax calls which are asynchronous.
+In order to get helper code to run at the proper time events are necessary.
 
 # data-activator="#annotation_query_button"
-I think it would be best not to have activation of the widget be tied to a click of a DOM element.
+I think it would be best not to have activation of the widget be tied only to a click of a DOM element.
 We may want some other kind of UI or code event to trigger activation.
 We don't have to get rid of it but there should be a method that can be called to begin activation.
 
