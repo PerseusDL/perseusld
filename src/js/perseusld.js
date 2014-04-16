@@ -8,7 +8,7 @@ var PerseusLD;
 
 PerseusLD = PerseusLD || {};
 PerseusLD.results = { "passage": [], "text": [], "work": [], "artifact": [] };
-PerseusLD.events = { "change": 'PereusLD-CHANGE' };
+PerseusLD.events = { change: 'PerseusLD-CHANGE', ready: 'PerseusLD-READY' };
 PerseusLD.elem = null;
 
 /**
@@ -175,7 +175,7 @@ PerseusLD.query_md_annotations  = function( a_query_elem ) {
 };
 
 /**
- * Retrieve SPARQL query results and fo
+ * Retrieve SPARQL query results and format them
  *
  * @param {obj} _data jQuery.get().done response object
  * @param {string} _elem jQuery select string for the dom element with the config attributes
@@ -218,7 +218,7 @@ PerseusLD.filter_artifact_annotations = function( a_elem, a_results ) {
 		for (var i=0; i<num_results; i++) {
 			PerseusLD.results.artifact.push(a_results[i].annotation.value);
 		}
-		jQuery(activator).on( 'touchstart click', function() { PerseusLD._show_annotations('artifact',a_elem,0);});
+		jQuery(activator).on( 'touchstart click', function() {  PerseusLD.artifact_annotations() });
 		jQuery(activator).show();
 	}
 	else {
@@ -227,7 +227,18 @@ PerseusLD.filter_artifact_annotations = function( a_elem, a_results ) {
 		//------------------------------------------------------------
 		jQuery(activator).hide();
     }
+	//------------------------------------------------------------
+	//  Let everyone know you're ready.
+	//------------------------------------------------------------
+	PerseusLD.elem.trigger( PerseusLD.events['ready'] );
 };
+
+/**
+ * Show artifact annotations.
+ */
+PerseusLD.artifact_annotations = function() {
+	PerseusLD._show_annotations( 'artifact', PerseusLD.elem, 0 );
+}
 
 /**
  * Sorts the results of the SPARQL query into results which target the passage, the specific text and
