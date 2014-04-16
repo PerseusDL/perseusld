@@ -7,8 +7,9 @@
 var PerseusLD;
 
 PerseusLD = PerseusLD || {};
-
 PerseusLD.results = { "passage": [], "text": [], "work": [], "artifact": [] };
+PerseusLD.events = { "change": 'PereusLD-CHANGE' };
+PerseusLD.elem = null;
 
 /**
  * The PerseusLD query_md_annotations widget executes a simple SOV SPARQL query and populates 
@@ -90,7 +91,11 @@ PerseusLD.results = { "passage": [], "text": [], "work": [], "artifact": [] };
  *         perseusld_passage   (all passage-specific (i.e. lawd:Citation) results)
  * 
  */
-PerseusLD.query_md_annotations  = function(a_query_elem) {
+PerseusLD.query_md_annotations  = function( a_query_elem ) {
+	//------------------------------------------------------------
+	//  Store the query element for use letter.
+	//------------------------------------------------------------
+	PerseusLD.elem = a_query_elem;
 	//------------------------------------------------------------
 	//  setup the transform
 	//------------------------------------------------------------
@@ -202,7 +207,7 @@ PerseusLD.sparql_results = function( _data, _elem, _formatter ) {
  *      }]
  *        
  */
-PerseusLD.filter_artifact_annotations = function(a_elem,a_results) {
+PerseusLD.filter_artifact_annotations = function( a_elem, a_results ) {
 	var annotations = { "artifact": []};
 	var activator = jQuery(a_elem).attr("data-activator");
 	var num_results = a_results.length;
@@ -516,9 +521,10 @@ PerseusLD._add_annotation = function( a_processor, a_xml, a_elem, a_opts) {
 	var converter = new Markdown.getSanitizingConverter();
 	var textElem = jQuery(".oac_cnt_chars",node).get(0);
 	var ptext = converter.makeHtml(jQuery(textElem).html());
-	jQuery(textElem).html(ptext);
-	jQuery("*:first-child",textElem).addClass('perseusld_elided').on( 'touchstart click', PerseusLD._toggle_elided);
-	a_elem.append(node);
+	
+	jQuery( textElem ).html( ptext );
+	jQuery( "*:first-child", textElem ).addClass( 'perseusld_elided' ).on( 'touchstart click', PerseusLD._toggle_elided );
+	a_elem.append( node );
 	if (a_opts.last) {
 		jQuery(a_elem).removeClass("loading");
 		if (a_opts.next != null) {
@@ -529,6 +535,10 @@ PerseusLD._add_annotation = function( a_processor, a_xml, a_elem, a_opts) {
 			});
 		}
 	}
+	//------------------------------------------------------------
+	//  Announce your change
+	//------------------------------------------------------------
+	PerseusLD.elem.trigger( PerseusLD.events['change'] );
 }
 
 /**

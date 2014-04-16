@@ -11,8 +11,11 @@
         <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Sanitizer.js"></script>
         <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Editor.js"></script>
         <script type="text/javascript">
-            $().ready(function() {
-                PerseusLD.query_md_annotations($("#annotation_query_results"));
+            jQuery().ready( function() {
+				jQuery("#annotation_query_results").on( PerseusLD.events['change'], function( _e ) {
+					console.log( 'change' );
+				});
+                PerseusLD.query_md_annotations( jQuery("#annotation_query_results") );
             });
         </script>
         <link href="" rel=""/>
