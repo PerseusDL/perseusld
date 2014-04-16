@@ -418,7 +418,8 @@ PerseusLD._show_annotations = function( a_type, a_elem, a_start ) {
 			{
 				type: 'GET',
 				xhrFields: {data: {"last":last, "next":next, "type":a_type}},
-				processData: false
+				processData: false,
+				dataType: 'xml'
 			}
 		)
 		.done( function( a_data, a_status, a_req ) { 
@@ -471,7 +472,7 @@ PerseusLD._fail_annotation = function(a_elem,a_is_last) {
  *        'type' : target type ('text','passage','work','artifact')
  *       } 
  */
-PerseusLD._transform_annotation = function(a_xml,a_elem,a_opts) {
+PerseusLD._transform_annotation = function( a_xml, a_elem, a_opts ) {
 	//------------------------------------------------------------
 	//  load the xslt processor if we haven't already)
 	//------------------------------------------------------------
@@ -480,11 +481,11 @@ PerseusLD._transform_annotation = function(a_xml,a_elem,a_opts) {
 		//  TODO this transform should show the target if it's 
 		//  different than the passage
 		//------------------------------------------------------------
-		jQuery.get(PerseusLD.xslt_url,
-			function(a_data,a_status,a_req) {
-				PerseusLD.xslt_processor = new XSLTProcessor();    
-				PerseusLD.xslt_processor.importStylesheet(a_data);
-				PerseusLD._add_annotation(PerseusLD.xslt_processor,a_xml,a_elem,a_opts);
+		jQuery.get( PerseusLD.xslt_url,
+			function( a_data, a_status, a_req ) {
+				PerseusLD.xslt_processor = new XSLTProcessor();
+				PerseusLD.xslt_processor.importStylesheet( a_data );
+				PerseusLD._add_annotation( PerseusLD.xslt_processor, a_xml, a_elem, a_opts );
 			},
 			'xml'
 		);
@@ -493,7 +494,7 @@ PerseusLD._transform_annotation = function(a_xml,a_elem,a_opts) {
 	//------------------------------------------------------------
 	}
 	else {
-		PerseusLD._add_annotation(PerseusLD.xslt_processor,a_xml,a_elem,a_opts);
+		PerseusLD._add_annotation( PerseusLD.xslt_processor, a_xml, a_elem, a_opts );
 	}
 }
 
@@ -509,9 +510,9 @@ PerseusLD._transform_annotation = function(a_xml,a_elem,a_opts) {
  *        'type' : target type ('text','passage','work','artifact')
  *       } 
  */
-PerseusLD._add_annotation = function(a_processor,a_xml,a_elem,a_opts) {
-	var html = a_processor.transformToDocument(a_xml);
-	var node = document.importNode(jQuery('div',html).get(0));
+PerseusLD._add_annotation = function( a_processor, a_xml, a_elem, a_opts) {
+	var html = a_processor.transformToDocument( a_xml );
+	var node = document.importNode( jQuery('div',html).get(0) );
 	var converter = new Markdown.getSanitizingConverter();
 	var textElem = jQuery(".oac_cnt_chars",node).get(0);
 	var ptext = converter.makeHtml(jQuery(textElem).html());

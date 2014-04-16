@@ -1,6 +1,6 @@
 # Formatting
-I'm a zealout when it comes to code formatting.
-What you are about to read may sound petty, and it is ;)
+I'm a zealot when it comes to code formatting.
+So that's what most of my feedback will be about.
 
 ## Indentation
 I use tabs for indentation.  I know for some people that's heresy and they prefer just spaces.
@@ -29,10 +29,10 @@ Inline comments I like to sandwich comments between lines of dashes.
 	//------------------------------------------------------------
 
 This helps to isolate comments when the code isn't syntax highlighted.
-It also reminds me to keep my code less horizontal ( I don't want code to go beyond those dashes... it looks ugly to me ) and therefore more readable.
+It also reminds me to keep my code less horizontal ( I don't want code to go beyond those dashes... it looks ugly to me ) and therefore more readable.  Aesthetics can be used as a force for good and not just Hitlerian evil ;)
 
 Also comments explaining an "if" or similar statement should come right before the statement and not inside it.
-I may be alone in this but I find this more readable...
+I find this more readable...
 
 	//------------------------------------------------------------
 	//  we've come from a click on the more button 
@@ -78,7 +78,7 @@ I write multiline strings like this.
 		";
 
 I treat quotes in multiline strings like braces in functions.
-Our programmer eyes are trained to see this as one block.
+Our programmer eyes are trained to see this as one block like a short function declaration.
 
 	function() {
 		"SELECT distinct ?annotation ?target ?who "+ dataset_query + "\
@@ -108,9 +108,7 @@ Here's an example of a singleton in Javascript
 	https://raw.githubusercontent.com/caesarfeta/jslib/master/src/js/SharedConfig.js
 
 # jQuery callbacks
-Declaring functions within a jQuery callback is inevitable.  But long functions... like more than 2 lines... should be pulled out into its own class method and then called from within the callback.
-
-
+Declaring functions within a jQuery callback is inevitable.  But long functions... like more than 2 lines... probably should be pulled out into a full-fledged class method and then called from within the callback.
 
 # Tablet-proof your click events
 Instead of... 
@@ -120,3 +118,35 @@ Instead of...
 use ...
 
 	jQuery(activator).on( 'touchstart click', function() { PerseusLD._show_annotations('artifact',a_elem,0);});
+
+# Code did not work out of the box.
+
+I was getting this error... Seems like the url for the annotation is malformed.
+
+	http://localhost/annotations/urn:cite:perseus:mythcomm.40.1/oac 404 (Not Found) jquery.js:8706
+
+It was happening on this line.
+
+	PerseusLD._show_annotations perseusld.js:323
+
+I just restructured the tests/data/annotations directory rather than messing with the code.
+
+## Had to add dataType 'xml'...
+This was a tricky bug to track down.
+The xml being passed to the XSLT transform here.
+
+	PerseusLD._add_annotation = function( a_processor, a_xml, a_elem, a_opts) {
+		var html = a_processor.transformToDocument( a_xml );
+
+a_xml in this case is a string and not an XML dom object.
+This will cause the tranformToDocument( a_xml ) call to fail silently.
+
+		jQuery.ajax( 
+			PerseusLD.results[a_type][i]+"/" + format,
+			{
+				type: 'GET',
+				xhrFields: {data: {"last":last, "next":next, "type":a_type}},
+				processData: false,
+				dataType: 'xml'
+			}
+		)

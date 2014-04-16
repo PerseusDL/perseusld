@@ -5,14 +5,18 @@ Perseus Linked Data Widget
 
 ## Install 
 
-to run the example code you need to:
+To run the example code you need to:
 
-1. load the tests/data/linkeddatatest.rdf file into a triple store at - e.g. for Fuseki:
+1. Load the tests/data/linkeddatatest.rdf file into a triple store at - e.g. for Fuseki:
 
-2. `./fuseki-server --file=[ path-to-this-repo ]/tests/data/linkeddatatest.rdf /ds`
+		./fuseki-server --file=[ path-to-this-repo ]/tests/data/linkeddatatest.rdf /ds
 
-3. update the @content attribute of 
-`<meta name='perseusld_SparqlEndpoint' content="http://localhost:3030/ds/query?query="/>`
-in the example html files to point at your triple store's endpoint 
 
-4. copy the annotations folder under tests/data to your local apache server's document root. (if you don't run an apache server under localhost:80 then you will also have to update the @rdf:about attribute of the annotations in linkeddatatest.rdf to use the url of your test Apache environment).
+2. Update the @content attribute, `<meta name='perseusld_SparqlEndpoint' content="http://127.0.0.1:3030/ds/query?query="/>`, in the example html files to point at your triple store's endpoint 
+
+3. Copy or link [ path-to-this-repo ]/tests/data/annotations to [ apache-document-root ]/annotations. If you aren't running an Apache server accessible at 127.0.0.1 then update linkeddatatest.rdf changing the @rdf:about attribute to use the url of your test Apache environment.
+
+		cp -R [ path-to-this-repo ]/tests/data/annotations [ apache-document-root ]/annotations
+
+## Running the examples
+When opening the examples use http://localhost instead of http://127.0.0.1 otherwise you may get cross domain security errors.
