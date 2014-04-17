@@ -17,9 +17,9 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "3rdparty",
     "test",
-    "tests"
+    "tests",
+    "bower_components/grunt"
   ],
   "dependencies": {
     "jquery": "~2.1.0",
