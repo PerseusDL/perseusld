@@ -107,7 +107,6 @@ PerseusLD.query_md_annotations  = function( a_query_elem ) {
     //  setup the transform
     //------------------------------------------------------------
     PerseusLD.xslt_url = jQuery(a_query_elem).attr("data-resourceurl") + "/xslt/oactohtml.xsl";
-	console.log( PerseusLD.xslt_url );
     var sbj_elemname = jQuery(jQuery(a_query_elem).attr("data-sbj"));
     //------------------------------------------------------------
     //  look for a work as the subject

@@ -8,7 +8,7 @@
         <link href="../third_party/sidecart/src/css/sidecart.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-		<div id="sidecartRight"></div>
+        <div id="sidecartRight"></div>
         <div id="annotation_query_results" 
             data-activator="#annotation_query_button"
             data-serialization="oac"
@@ -17,56 +17,69 @@
             data-verb="http://www.w3.org/ns/oa#hasTarget" 
             data-formatter="filter_artifact_annotations"
             data-resourceurl="http://localhost/perseus_ldwidget/src">
-                <div class="widgets clearfix"><button class="perseusld_close" id="close_annotations_button">Close</button></div>
                 <div class="perseusld_results perseusld_artifact"></div>
         </div>
         <div id="data" class="widget secondary">
-            <div class="header">
-                <a id="data-link" href="javascript:toggle('data')" class="toggle">hide</a>Data/Identifiers
-            </div>
             <div id="data-contents" class="contents">
-                <div resource="http://data.perseus.org/artifacts/vase/Malibu+87.AE.22" typeof="http://www.cidoc-crm.org/cidoc-crm/E22_Man-Made_Object">Malibu+27.AE.22</div>
+                <div resource="http://data.perseus.org/artifacts/vase/Malibu+87.AE.22" typeof="http://www.cidoc-crm.org/cidoc-crm/E22_Man-Made_Object"></div>
             </div>
         </div>
     </body>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script type="text/javascript" src="../third_party/sidecart/src/js/sidecart.js"></script>
-	<script type="text/javascript" src="../third_party/sidecart/third_party/Readmore.js/readmore.min.js"></script>
-	<script type="text/javascript" src="../third_party/sidecart/third_party/jslib/src/js/Styler.js"></script>
-	<script type="text/javascript" src="../third_party/sidecart/third_party/jslib/src/js/jQueryPlus.js"></script>
-	<script src="../src/js/perseusld.js"></script>
-	<script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Converter.js"></script>
-	<script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Sanitizer.js"></script>
-	<script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Editor.js"></script>
-	<script type="text/javascript">
-	    jQuery().ready( function() {
-			PerseusLD.query_md_annotations( jQuery("#annotation_query_results") );
-			jQuery("#annotation_query_results").on( PerseusLD.events['ready'], function( _e ) {
-				jQuery('#sidecartRight').sidecart({
-					side: 'right',
-					views: [
-						{
-							id: 'annotations',
-							type: 'annotations',
-							link: 'A',
-							src: '',
-							init: function() {
-								PerseusLD.artifact_annotations();
-							},
-							refresh: function() {
-								jQuery( '#sidecartRight #annotations' ).empty();
-								var results = jQuery("#annotation_query_results .perseusld_results").html();
-								jQuery( '#sidecartRight #annotations' ).html( results );
-								jQuery('.annotation').readmore({
-									maxHeight: 200,
-									moreLink: '<a href="#">More</a>',
-									lessLink: '<a href="#">Less</a>'
-								});
-							}
-						}
-					]
-				});
-			});
+    <script type="text/javascript" src="../third_party/sidecart/src/js/sidecart.js"></script>
+    <script type="text/javascript" src="../third_party/sidecart/third_party/Readmore.js/readmore.min.js"></script>
+    <script type="text/javascript" src="../third_party/sidecart/third_party/jslib/src/js/Styler.js"></script>
+    <script type="text/javascript" src="../third_party/sidecart/third_party/jslib/src/js/jQueryPlus.js"></script>
+    <script src="../src/js/perseusld.js"></script>
+    <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Converter.js"></script>
+    <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Sanitizer.js"></script>
+    <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Editor.js"></script>
+    <script type="text/javascript">
+        jQuery().ready( function() {
+            //------------------------------------------------------------
+            //  When the ready event is triggered get the artifact annotations
+            //------------------------------------------------------------
+            jQuery("#annotation_query_results").on( PerseusLD.events['ready'], function( _e ) {
+                PerseusLD.artifact_annotations();
+            });
+            //------------------------------------------------------------
+            //  Startup sidecart when change event is triggered. 
+            //------------------------------------------------------------
+            jQuery("#annotation_query_results").on( PerseusLD.events['change'], function( _e ) {
+                jQuery('#sidecartRight').sidecart({
+                    side: 'right',
+                    views: [
+                        {
+                            id: 'annotations',
+                            type: 'annotations',
+                            link: 'A',
+                            src: '',
+							//------------------------------------------------------------
+							//  This callback function runs once when the view is first
+							//  initialized.
+							//------------------------------------------------------------
+                            init: function() {
+                                jQuery( '#sidecartRight #annotations' ).empty();
+                                var results = jQuery("#annotation_query_results .perseusld_results").html();
+                                jQuery( '#sidecartRight #annotations' ).html( results );
+                                jQuery('.annotation').readmore({
+                                    maxHeight: 200,
+                                    moreLink: '<a href="#">More</a>',
+                                    lessLink: '<a href="#">Less</a>'
+                                });
+                            },
+							//------------------------------------------------------------
+							//  This callback function runs everytime a view's tab is clicked
+							//------------------------------------------------------------
+                            refresh: function() {}
+                        }
+                    ]
+                });
+            });
+            //------------------------------------------------------------
+            //  Start it up!
+            //------------------------------------------------------------
+            PerseusLD.query_md_annotations( jQuery("#annotation_query_results") );
         });
     </script>
 </html>
