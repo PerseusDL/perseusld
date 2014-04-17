@@ -69,6 +69,9 @@ use ...
 
 	jQuery(activator).on( 'touchstart click', function() { PerseusLD._show_annotations('artifact',a_elem,0);});
 
+# Hiding  long text "Readmore"
+I think it makes more sense to use a more generalized plugin for the "Readmore" feature.  So I've included it here and removed references to 'elided'.
+
 # Formatting
 I'm a zealot when it comes to code formatting.
 So that's what the rest of my feedback will be about.
