@@ -28,16 +28,17 @@
             <xsl:apply-templates select="rdfs:label"/>
             <xsl:apply-templates select="oac:motivatedBy"/>
             <a href="{@rdf:about}" class="oac_annotation_uri">Permalink</a>
-            <div class="annotation clearfix">
+            <div class="annotation">
                 <xsl:apply-templates select="oac:hasBody"/>
             </div>
             <xsl:variable name="target">
                 <xsl:apply-templates select="oac:hasTarget"/>
             </xsl:variable>
-            <div class="metadata clearfix" title="Annotation on {$target}">
+            <div class="metadata" title="Annotation on {$target}">
                 <xsl:apply-templates select="oac:annotatedBy"/>
                 <xsl:apply-templates select="oac:annotatedAt"/>
-            </div>                  
+            </div>
+			<div class="clear"></div>
         </div>
     </xsl:template>
     
