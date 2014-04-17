@@ -1,4 +1,4 @@
-#annotation_query_results {
+#perseusld_query_md_annotations {
      border: 1px solid black;
      position: fixed;
      left: 56%;
@@ -13,7 +13,7 @@
 }
 
 
-#annotation_query_results div {
+#perseusld_query_md_annotations div {
     background-color: #FFFF66;
 }
 

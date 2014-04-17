@@ -1,9 +1,3 @@
-/**
- * Currently has dependencies on:
- *     JQuery
- *     Pagedown: Markdown.SanitizingConverter
- *  TODO: decide on approach to including dependencies (github submodules, requirejs, etc)
- */
 var PerseusLD;
 
 PerseusLD = PerseusLD || {};
@@ -11,39 +5,55 @@ PerseusLD = PerseusLD || {};
 PerseusLD.results = { "passage": [], "text": [], "work": [], "artifact": [] };
 
 /**
- * The PerseusLD query_md_annotations widget executes a simple SOV SPARQL query and populates 
- * the page with a sorted set of the results. The results are expected to be OA annotations 
- * which have one or more annotation targets uris and an inline annotation body composed of 
- * markdown text. 
+ * The PerseusLD query_md_annotations widget executes a simple SOV SPARQL 
+ * query and populates the page with a sorted set of the results. The 
+ * results are expected to be OA annotations which have one or more annotation 
+ * targets uris and an inline annotation body composed of markdown text. 
  * 
- * The HTML page containing the widget is expected to have a <meta/> element with the id 
- * persusld_SparqlEndpoint that identifies the location of the sparql endpoint as the value of its content
- * attribute. E.g.
+ * To activate the widget add the following to the head of your html page:
+ *   1. a <meta/> element with the id 
+ *      persusld_SparqlEndpoint that identifies the location of the sparql 
+ *      endpoint as the value of its content attribute. E.g.
  *
- *  <meta name='perseusld_SparqlEndpoint' content="http://localhost:3030/ds/query?query="/>
+ *      <meta name='perseusld_SparqlEndpoint' 
+ *            content="http://localhost:3030/ds/query?query="/>
  *
- * You should also include links to the css/perseus_ld.css stylesheet and javascript library
- * dependencies in the head of your HTML page. (See note at the top of this file about dependencies).  
- *  
- * To activate the PerseusLD annotations widget, call the query_md_annotations function on an 
- * element which contains the following attributes:
- * 
- *    data-activator: the css selector for a UI element to which the plugin will apply a 
- *                    a click handler will show/hide the results. If no results are found it will be hidden.
- *    data-resourceurl: the base url at which the PerseusLD code is deployed
- *    data-serialization: a post-fix path to append to the annotation uri in the results to request a 
- *                        specific output format 
- *    data-pagemax: optional attribute to set maximum results to show on the page per result type
- *                  (the formatter must support paging)
- *    data-set: the uri of the data set to query 
- *    data-verb: the verb for the SPARQL query 
- *    data-formatter: the name of a javascript function (must be in the PerseusLD namespace)
- *                    to use to format the results. Two default functions are supplied with the widget:
- *                    PerseusLD.filter_text_annotations and PerseusLD.filter_artifact_annotations
- *                    the formatter should accept 2 arguments: the query element and the results array
- *    data-sbj: the css selector of an element containing the subject of the query
- *    data-sbjclass: the class of the subject (currently supported: 'text' and 'object')
- *        the widget expects a child element of the subject element (as identified by @data-sbj) with 
+ *   2. links to the css/perseus_ld.css stylesheet and requirejs 
+ *      javascript library as follows (replacing installpath with the path 
+ *      at which the perseusld code is installed:
+ *      <link href="installpath/src/css/perseusld.css"
+ *            rel="stylesheet" type="text/css"/>
+ *      <script data-main="installpath/src/js/config.js" 
+ *              src="installpath/src/js/lib/requirejs/require.js"></script>
+ *   3. an element with the following attributes:
+ *        id perseusld_query_md_annotations  and
+ *        data-activator: the css selector for a UI element to which 
+ *                        the plugin will apply a click handler to show/hide 
+ *                        the results. If no results are found it will be 
+ *                        hidden.
+ *        data-resourceurl: the base url at which the PerseusLD code is deployed
+ *        data-serialization: a post-fix path to append to the annotation 
+ *                            uri in the results to request a specific output 
+ *                            format 
+ *        data-pagemax: optional attribute to set maximum results to 
+ *                      show on the page per result type
+ *                      (the formatter must support paging)
+ *        data-set: the uri of the data set to query 
+ *        data-verb: the verb for the SPARQL query 
+ *        data-formatter: the name of a javascript function 
+ *                        (must be in the PerseusLD namespace)
+ *                        to use to format the results. Two default 
+ *                        functions are supplied with the widget:
+ *                        PerseusLD.filter_text_annotations and 
+ *                        PerseusLD.filter_artifact_annotations
+ *                        the formatter should accept 2 arguments: 
+ *                        the query element and the results array
+ *        data-sbj: the css selector of an element containing the 
+ *                  subject of the query
+ *        data-sbjclass: the class of the subject 
+ *                       (currently supported: 'text' and 'object')
+ *        the widget expects a child element of the subject element 
+ *        (as identified by @data-sbj) with 
  *        the RDF-A @resource attribute set to the URI of the object and the  
  *        RDFA-A @typeof attribute set to one of:
  * 
@@ -60,11 +70,10 @@ PerseusLD.results = { "passage": [], "text": [], "work": [], "artifact": [] };
  *             http://lawd.info/ontology/WrittenWork 
  *             http://lawd.info/ontology/Citation
  * 
- *  The element on which query_md_annotations is activated should contain the following required
- *  child elements:
+ *  The above element should contain the following required child elements:
  * 
- *     1. an element with the class perseusld_close to which a click handler to hide the element
- *     will be applied.  
+ *     1. an element with the class perseusld_close to which a click handler 
+ *        to hide the element will be applied.  
  *      
  *     2. an element with the classes perseusld_results and one of 
  *         perseusld_artifact  (all artifact results will be appended here)

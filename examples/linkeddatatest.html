@@ -5,21 +5,11 @@
         <meta name='perseusld_SparqlEndpoint' content="http://localhost:3030/ds/query?query="/>
         <link href="css/example.css" rel="stylesheet" type="text/css"/>
         <link href="../src/css/perseusld.css" rel="stylesheet" type="text/css"/>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="../src/js/perseusld.js"></script>
-        <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Converter.js"></script>
-        <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Sanitizer.js"></script>
-        <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Editor.js"></script>
-        <script type="text/javascript">
-            $().ready(function() {
-                PerseusLD.query_md_annotations($("#annotation_query_results"));
-            });
-        </script>
-        <link href="" rel=""/>
+        <script data-main="../src/js/config.js" src="../src/js/lib/requirejs/require.js"></script>
     </head>
     <body>
         <button id="annotation_query_button" style="display:none;"><img src="../src/img/annotations.png"/></button>
-        <div id="annotation_query_results"
+        <div id="perseusld_query_md_annotations"
             data-activator="#annotation_query_button"
             data-serialization="oac"
             data-sbj="#data-contents" 
