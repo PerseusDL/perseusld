@@ -1,0 +1,29 @@
+{
+  "name": "perseusld",
+  "version": "0.0.1",
+  "homepage": "https://github.com/PerseusDL/perseus_ldwidget",
+  "description": "Perseus Linked Data Widget",
+  "main": "perseusld.js",
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
+  "authors": [
+    "Perseus Digital Library"
+  ],
+  "license": "GPL 3.0",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "bower_components/grunt"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.0",
+    "requirejs" : "~2.1.11",
+    "pagedown" : "~1.1.0"
+  }
+}
