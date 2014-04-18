@@ -114,7 +114,7 @@
     
     <xsl:template match="foaf:name">
         <div class="foaf_name" property="foaf:name">
-            <xsl:copy/>
+            <xsl:value-of select="."/>
         </div>
     </xsl:template>
     
