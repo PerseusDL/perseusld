@@ -1,14 +1,25 @@
-# 2014-04-17
+# 2014-04-17 
+(Responses inline prefaced with BMA:)
 # Overview
 I think it's best to decouple the UI from this widget.
+
+    BMA: Ok, I agree. Was trying to make it so that UI wouldn't have to be implemented separately but you are probably right.
+
 I think it's best to think of the widget as only data retrieval tool.
 I added some event triggers.  
+
+    BMA: I like the event triggers. We have a little more work to do to finish implementing them, especially with the filter_text_annotations formatter function:
+      1. the formatter functions should not call the show_[type]_annotations method
+      2. we either need to send annotation-type specific events, rather than just ready event, or the ready event should include data about the type of annotations that are ready to be shown (filter text has 'text','passage','work' which each would require a separate show call)
+
 If you look at examples/sidecart.html you can see how I listen for events and then start-up different plug-ins designed specifically for display once the data is retrieved.
 I think this decoupling is best.
 It makes the widget more reusable IMO.
 
 I added submodules for the sidecart plugin and its dependencies.
 I'll be looking at grunt and figure out how to put it all together.
+
+    BMA: ok yes I'd like a single consistent build approach
 
 # Bugs / Improvements
 ## Code did not work out of the box.
@@ -23,6 +34,11 @@ It was happening on this line.
 
 I just restructured the tests/data/annotations directory rather than messing with the code.
 I figured the tests were oddities and the code was meant to work with our production system.
+
+    BMA: maybe I missed a step in the examples README. You needed to make the annotations available under your
+    local apache server. I think I have a rewrite rule in mine that handles the /oac format extension. This is how
+    I intend to deploy them (the annotations are actually already available in the production location but more on
+    that later.
 
 ## dataType 'xml'...
 This was a tricky bug to track down.
@@ -61,6 +77,8 @@ I think it's best to limit what this widget does.
 I don't think it needs to be tightly coupled with a UI.
 It probably is best to view the widget as a data retrieval system only.
 
+    BMA: okay so we are moving these triggers to the sidecart plugin anyway now correct?
+
 ## Singleton?
 You could make this class a singleton so you could call class methods with the this keyword.
 
@@ -74,6 +92,10 @@ Here's an example of a singleton in Javascript
 
 	https://raw.githubusercontent.com/caesarfeta/jslib/master/src/js/SharedConfig.js
 
+...
+
+    BMA: agree a singleton is probably better here
+    
 ## jQuery callbacks
 Declaring functions within a jQuery callback is inevitable.  But long functions... like more than 2 lines... probably should be pulled out into a full-fledged class method and then called from within the callback.
 
@@ -90,6 +112,8 @@ use ...
 I think it makes more sense to use a more generalized plugin for the "Readmore" feature.
 So I've included it here and removed references to 'elided'.
 
+    BMA: like this much better, thanks.
+
 ## Dollar signs
 Writing 'jQuery' instead of '$' is kind of a drag, but we've been burned by conflicts with Prototype.js before.
 Might be good to just do a find and replace before committing, 
@@ -101,6 +125,8 @@ I changed up the XSLT stylesheet to make dates show day of the week.
 I was thinking instructors might want to have that handy without doing any mental calculations.
 I know class assignment due dates are often thought in these terms.
 
+    BMA: Okay. It's a shame that the browsers don't support XSLT 2.0 which has a format-date function.
+    
 ## Make sosol username link more human readable
 I think it's good practice to shorten anchor tag targets to just a nickname or handle and leave the full URL only in the href.  I switched up the XSLT stylesheet to do this.
 
@@ -110,6 +136,9 @@ So that's what the rest of my feedback will be about.
 
 ## Indentation
 I use tabs for indentation.  I know for some people that's heresy and they prefer just spaces.
+
+    BMA: I prefer 4 spaces -- tried to be consistent but maybe some tabs slipped in there. Sorry.
+    
 Whatever your preference is it's good to stick to one method.
 You can't guarantee how another person sets up there text editor.
 Some people set tabs to be equivalent to 4 spaces, 6 spaces and I've known sickos who do 2 spaces.
