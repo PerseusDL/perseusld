@@ -1,3 +1,9 @@
+# "built" files #
+#################
+perseusld.js
+perseusld.min.js
+perseusld.css
+
 # Compiled source #
 ###################
 *.com
@@ -39,14 +45,4 @@ Thumbs.db
 # Scratch files #
 #################
 SCRATCH.md
-scratch
-
-# Grunt / Bower /Node #
-#######################
-bower_components/
-node_modules/
-
-# Javascript lib and build #
-############################
-src/js/lib/
-build/
+scratch/
