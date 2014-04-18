@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title></title>
-        <meta name='perseusld_SparqlEndpoint' content="http://localhost:3030/ds/query?query="/>
+        <meta name='perseusld_SparqlEndpoint' content="http://127.0.0.1:3030/ds/query?query="/>
         <link href="css/example.css" rel="stylesheet" type="text/css"/>
         <link href="../src/css/perseusld.css" rel="stylesheet" type="text/css"/>
-        <script data-main="../src/js/config.js" src="../src/js/lib/requirejs/require.js"></script>
+        <link href="" rel=""/>
     </head>
     <body>
         <button id="annotation_query_button" style="display:none;"><img src="../src/img/annotations.png"/></button>
@@ -16,7 +16,7 @@
             data-sbjclass='object' 
             data-verb="http://www.w3.org/ns/oa#hasTarget" 
             data-formatter="filter_artifact_annotations"
-            data-resourceurl="http://localhost/perseus_ldwidget/src">
+            data-resourceurl="http://localhost/perseusld/src">
                 <div class="widgets clearfix"><button class="perseusld_close" id="close_annotations_button">Close</button></div>
                 <div class="perseusld_results perseusld_artifact"></div>
         </div>
@@ -29,4 +29,5 @@
             </div>
         </div>
     </body>
+    <script data-main="../src/js/config.js" src="../src/js/lib/requirejs/require.js"></script>
 </html>

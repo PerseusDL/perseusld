@@ -1,8 +1,8 @@
 require(['jquery','perseusld'],
-function($) {
+function(jQuery) {
     // add your application logic here
-    $().ready(function() {
-        PerseusLD.query_md_annotations($("#perseusld_query_md_annotations"));
+    jQuery().ready(function() {
+        PerseusLD.query_md_annotations(jQuery("#perseusld_query_md_annotations"));
     });
 });
 

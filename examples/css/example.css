@@ -1,76 +1,24 @@
-#perseusld_query_md_annotations {
-     border: 1px solid black;
-     position: fixed;
-     left: 56%;
-     padding: 5px;
-     background-color: #FFFF66;
-     display:none;
-     /** to keep the while underneath from bleeding through **/
-     min-height: 100px;
-     max-height: 400px;
-     overflow: auto;
-     resize: both;
-}
-
-
-#perseusld_query_md_annotations div {
-    background-color: #FFFF66;
-}
-
-#close_annotations_button {
-    float: right;
-}
-
 .oac_annotation {
-     max-width: 400px;
-     border-bottom: 1px #888888 dashed;
-     margin-bottom: 2px;
-     padding-bottom: 2px;
-     background-color: #FFFF66;
-   
+	padding-bottom: 20px;
+	margin-bottom: 5px;
 }
-
-
-.oac_motivation  {
-    display: none;
+.oac_annotation .oac_annotation_uri {
+	font-size: 10px;
 }
-
-.oac_creator {
-    float: left;
+.oac_annotation .metadata {
+	float: right;
 }
-
-.oac_annotatedAt {
-    float: right;
+.oac_annotation .oac_motivation {
+	color: #888;
+	display: inline-block;
+	margin-right: 5px;
 }
-
-.oac_creator * {
-    display: inline;
+.oac_annotation .clear {
+	clear:both;
 }
-
-.oac_annotation_uri {
-    display: none;
-}
-
-.label {
-    display: none;
-}
-
-.clearfix:after {
-    content: ".";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
-}
-.clearfix {display: inline-block;}
-* html .clearfix {height: 1%;}
-.clearfix {display: block;}
-.clear { clear:both; }
-
 .loading {
 	background-image:url('waiting.gif');
 	background-repeat: no-repeat;
 	height: 1.5em;	
 	width: 256px;
 }
-

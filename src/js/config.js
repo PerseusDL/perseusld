@@ -19,5 +19,5 @@ require.config({
 });
 
 require(['jquery','converter','sanitizer','app'],
-function($,converter,app) {
+function(jQuery,converter,app) {
 });
