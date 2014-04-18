@@ -1,16 +1,30 @@
 perseusld
 ================
 
-Perseus Linked Data Widget
+Perseus Linked Data Widget - Retrieve RDF data with AJAX and format it for HTML display.
 
 ## Install
+###  Grunt
+
+1. Install npm, node package manager: https://www.npmjs.org/doc/README.html
+    * If you use OSX and Homebrew just run this command.
+
+            brew install npm
+
+2. From the root of the perseusld directory run the following commands
+
+        npm install grunt
+        npm install -g grunt-cli
+        npm install grunt-bower-task
+        npm install grunt-update-submodules
+        grunt
+
+###  perseusld
 To run the example code you must:
 
 1. Clone all git submodules.
 
         git submodule update --init --recursive
-
-2. Follow the instructions in INSTALL.md to install the javascript dependencies
 
 3. Load the tests/data/linkeddatatest.rdf file into a triple-store, e.g. for Fuseki:
 

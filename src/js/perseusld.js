@@ -318,13 +318,8 @@ PerseusLD.filter_text_annotations = function(a_elem,a_results) {
             //------------------------------------------------------------
             else if (version_passage_start != null) {
                 var target_passage = null;
-<<<<<<< HEAD
-                var work_passage_regex = new RegExp("^" + work_uri + ":(.+)jQuery");
-                var version_passage_regex = new RegExp("^" + text_uri + ":(.+)jQuery");
-=======
                 var work_passage_regex = new RegExp("^" + work_uri + ":(.+)$");
                 var version_passage_regex = new RegExp("^" + text_uri + ":(.+)$");
->>>>>>> 3034917191af6a2881350e67b28faa6eeab33f7b
                 var work_passage_match = work_passage_regex.exec(target);
                 var version_passage_match = version_passage_regex.exec(target);
                 
@@ -337,33 +332,20 @@ PerseusLD.filter_text_annotations = function(a_elem,a_results) {
                 if (target_passage != null) {
                     var target_passage_start = null;
                     var target_passage_end = null;
-<<<<<<< HEAD
-                    var range_match = target_passage.match(/^(.+?)-(.+)jQuery/); 
-=======
                     var range_match = target_passage.match(/^(.+?)-(.+)$/); 
->>>>>>> 3034917191af6a2881350e67b28faa6eeab33f7b
                     //------------------------------------------------------------
                     //  strip subrefs for now - check # and @ for backwards compatibility
                     //------------------------------------------------------------
                     if ( range_match != null) {
-<<<<<<< HEAD
-                        target_passage_start = range_match[1].replace(/[@#].*jQuery/, '');
-                        target_passage_end = range_match[2].replace(/[@#].*jQuery/, '');
-=======
                         target_passage_start = range_match[1].replace(/[@#].*$/, '');
                         target_passage_end = range_match[2].replace(/[@#].*$/, '');
->>>>>>> 3034917191af6a2881350e67b28faa6eeab33f7b
                     }
                     //------------------------------------------------------------
                     // no range - start and end are the same
                     // strip subrefs for now - check # and @ for backwards compatibility
                     //------------------------------------------------------------
                     else {
-<<<<<<< HEAD
-                        target_passage_start = target_passage_end = target_passage.replace(/[@#].*jQuery/, '');
-=======
                         target_passage_start = target_passage_end = target_passage.replace(/[@#].*$/, '');
->>>>>>> 3034917191af6a2881350e67b28faa6eeab33f7b
                     }
                     if (target_passage_start >= version_passage_start &&
                         (version_passage_end == null || target_passage_end <= version_passage_end)) {

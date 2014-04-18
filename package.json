@@ -1,4 +1,6 @@
 {
+  "name": "perseusld",
+  "version": "0.1.0",
   "devDependencies": {
     "grunt": "~0.4.2",
     "grunt-contrib-jshint": "~0.6.3",
