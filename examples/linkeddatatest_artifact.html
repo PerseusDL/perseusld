@@ -16,7 +16,7 @@
             data-sbjclass='object' 
             data-verb="http://www.w3.org/ns/oa#hasTarget" 
             data-formatter="filter_artifact_annotations"
-            data-resourceurl="http://localhost/perseus_ldwidget/src">
+            data-resourceurl="http://localhost/perseusld/src">
                 <div class="widgets clearfix"><button class="perseusld_close" id="close_annotations_button">Close</button></div>
                 <div class="perseusld_results perseusld_artifact"></div>
         </div>
@@ -29,19 +29,5 @@
             </div>
         </div>
     </body>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="../src/js/perseusld.js"></script>
-    <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Converter.js"></script>
-    <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Sanitizer.js"></script>
-    <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Editor.js"></script>
     <script data-main="../src/js/config.js" src="../src/js/lib/requirejs/require.js"></script>
-    <script type="text/javascript">
-        jQuery().ready( function() {
-            jQuery("#annotation_query_results").on( PerseusLD.events['change'], function( _e ) {
-                console.log( 'change' );
-            });
-            PerseusLD.query_md_annotations( jQuery("#annotation_query_results") );
-        });
-    </script>
-    
 </html>

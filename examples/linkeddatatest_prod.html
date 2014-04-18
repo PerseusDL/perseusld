@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title></title>
-        <meta name='perseusld_SparqlEndpoint' content="http://localhost:3030/ds/query?query="/>
+        <meta name='perseusld_SparqlEndpoint' content="http://services.perseus.tufts.edu/fuseki/ds/query?query="/>
         <link href="css/example.css" rel="stylesheet" type="text/css"/>
         <link href="../src/css/perseusld.css" rel="stylesheet" type="text/css"/>
         <script data-main="../src/js/config.js" src="../src/js/lib/requirejs/require.js"></script>
@@ -13,6 +13,7 @@
             data-activator="#annotation_query_button"
             data-serialization="oac"
             data-sbj="#data-contents" 
+            data-set="http://data.perseus.org/ds/collections"
             data-sbjclass='text' 
             data-verb="http://www.w3.org/ns/oa#hasTarget" 
             data-formatter="filter_text_annotations"
