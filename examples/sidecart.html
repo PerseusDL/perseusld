@@ -36,15 +36,9 @@
     <script type="text/javascript">
         jQuery().ready( function() {
             //------------------------------------------------------------
-            //  When the ready event is triggered get the artifact annotations
-            //------------------------------------------------------------
-            jQuery("#annotation_query_results").on( PerseusLD.events['ready'], function( _e ) {
-                PerseusLD.artifact_annotations();
-            });
-            //------------------------------------------------------------
             //  Startup sidecart when change event is triggered. 
             //------------------------------------------------------------
-            jQuery("#annotation_query_results").on( PerseusLD.events['change'], function( _e ) {
+            jQuery("#annotation_query_results").on( 'PerseusLD--LOADED', function( _e ) {
                 jQuery('#sidecartRight').sidecart({
                     side: 'right',
                     views: [
@@ -78,7 +72,7 @@
             //------------------------------------------------------------
             //  Start it up!
             //------------------------------------------------------------
-            PerseusLD.query_md_annotations( jQuery("#annotation_query_results") );
+            jQuery( "#annotation_query_results" ).PerseusLD();
         });
     </script>
 </html>
