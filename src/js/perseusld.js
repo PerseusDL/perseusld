@@ -46,6 +46,9 @@
         self.query_md_annotations();
     }
     
+    /**
+     * Retrieve user configuration from the DOM
+     */
     PerseusLD.prototype.userConfig = function() {
         var self = this;
         //------------------------------------------------------------
@@ -88,12 +91,18 @@
         self.sbj = "\\\\Q" + self._strip_uri_prefix( self.sbj_elem.attr("resource") ) + "\\\\E";    
     }
     
+    /**
+     * Show an error
+     */
     PerseusLD.prototype.showError = function() {
         if ( window.console ) { 
             console.log( "Error retrieving annotations" );
         }
     }
     
+    /**
+     * Retrieve the annotations
+     */
     PerseusLD.prototype.query_md_annotations = function() {
         var self = this;  
         var dataset_query = "";
@@ -120,7 +129,8 @@
             //------------------------------------------------------------
             //  Issue the query and get the results
             //------------------------------------------------------------
-            jQuery.get( self.queryuri + encodeURIComponent( query ) + "&format=json" )
+            var query = self.queryuri + encodeURIComponent( query.smoosh().oneSpace() ) + "&format=json";
+            jQuery.get( query )
             .done( function( _data ) {
                 self.sparql_results( _data );
             })
@@ -195,7 +205,6 @@
             jQuery( ".perseusld_results.perseusld_"+_type+" .more_annotations", self.elem ).hide();
         }
         jQuery( ".perseusld_results.perseusld_"+_type, self.elem ).addClass( "loading" );
-        
         self.show();
         var end = _start + self.max_results-1;
         if ( end > self.results[_type].length-1 ) {
@@ -224,21 +233,34 @@
             )
             .done( function( _data, _status, _req ) { 
                 var elem = jQuery( ".perseusld_results.perseusld_"+_type, self.elem );
+                jQuery( ".perseusld_results.perseusld_"+_type, self.elem ).removeClass( "loading" );
                 self._transform_annotation( _data, elem, this.xhrFields.data );
             })
             .fail( function( _req ) { 
                 var elem = jQuery( ".perseusld_results.perseusld_"+_type, self.elem );
-                self._fail_annotation( elem, this.xhrFields.data.last );
+                self._fail_annotation( this.xhrFields.data.last );
             });
          }
     }
     
     /**
+     * Removes the loading class if annotation loading fails
+     *
+     * @param { boolean } _is_last Indicates the last annotation to be retrieved
+     */
+    PerseusLD.prototype._fail_annotation = function( _is_last) {
+        if ( _is_last ) {
+            jQuery( this.elem ).removeClass( "loading" );
+        }
+    }
+    
+    /**
      * Helper method to transform an annotation using an XSLT transformation, initializing
      * the xslt processor first
-     * @param a_xml the xml to transform
-     * @param a_elem the element to hold the transformed output
-     * @param a_options key value pairs 
+     *
+     * @param { xml } _xml The xml to transform
+     * @param { dom } _elem The element where output is written
+     * @param { object } _options Key value pairs 
      *      { 'last' : boolean flag to indicate if this is the last transformation,
      *        'next': int index of the next result,
      *        'type' : target type ('text','passage','work','artifact')

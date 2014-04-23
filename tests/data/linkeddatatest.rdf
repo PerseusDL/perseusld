@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:oac="http://www.openannotation.org/ns/" xmlns:cnt="http://www.w3.org/2008/content#">
-  <Annotation xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="http://127.0.0.1/annotations/urn:cite:perseus:mythcomm.10.1">
+  <Annotation xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="http://localhost/annotations/urn:cite:perseus:mythcomm.10.1">
     <hasTarget xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://data.perseus.org/citations/urn:cts:greekLit:tlg0019.tlg006:685-707"/>
     <hasTarget xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://data.perseus.org/citations/urn:cts:greekLit:tlg0019.tlg006.perseus-eng1:685-707"/>
     <hasBody xmlns="http://www.w3.org/ns/oa#">
@@ -23,7 +23,7 @@ Lastly, Aristophanes has the birds speak of the extent of their knowledge and po
     <motivatedBy xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://www.w3.org/ns/oa#commenting"/>
     <annotatedAt xmlns="http://www.w3.org/ns/oa#">2013-09-28T22:16:44+00:00</annotatedAt>
   </Annotation>
-  <Annotation xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="http://127.0.0.1/annotations/urn:cite:perseus:mythcomm.99.1">
+  <Annotation xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="http://localhost/annotations/urn:cite:perseus:mythcomm.99.1">
     <hasTarget xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://data.perseus.org/citations/urn:cts:greekLit:tlg0019.tlg006:685-707"/>
     <hasTarget xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://data.perseus.org/citations/urn:cts:greekLit:tlg0019.tlg006.perseus-eng1:685-707"/>
     <hasBody xmlns="http://www.w3.org/ns/oa#">
@@ -46,7 +46,7 @@ Lastly, Aristophanes has the birds speak of the extent of their knowledge and po
     <motivatedBy xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://www.w3.org/ns/oa#commenting"/>
     <annotatedAt xmlns="http://www.w3.org/ns/oa#">2013-09-28T22:16:44+00:00</annotatedAt>
   </Annotation>
-  <Annotation xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="http://127.0.0.1/annotations/urn:cite:perseus:mythcomm.11.1">
+  <Annotation xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="http://localhost/annotations/urn:cite:perseus:mythcomm.11.1">
     <hasTarget xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://data.perseus.org/citations/urn:cts:greekLit:tlg0019.tlg006"/>
     <hasTarget xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://data.perseus.org/citations/urn:cts:greekLit:tlg0019.tlg006.perseus-eng1"/>
     <hasBody xmlns="http://www.w3.org/ns/oa#">
@@ -69,7 +69,7 @@ Lastly, Aristophanes has the birds speak of the extent of their knowledge and po
     <motivatedBy xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://www.w3.org/ns/oa#commenting"/>
     <annotatedAt xmlns="http://www.w3.org/ns/oa#">2013-09-28T22:16:44+00:00</annotatedAt>
   </Annotation>
-    <Annotation xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="http://127.0.0.1/annotations/urn:cite:perseus:mythcomm.40.1">
+    <Annotation xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="http://localhost/annotations/urn:cite:perseus:mythcomm.40.1">
       <hasTarget xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://data.perseus.org/artifacts/vase/Berlin+F+2290"/>
       <hasTarget xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://data.perseus.org/artifacts/vase/Boston+00.499"/>
       <hasTarget xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://data.perseus.org/artifacts/vase/Malibu+87.AE.22"/>
