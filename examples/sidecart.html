@@ -29,46 +29,64 @@
     <script type="text/javascript" src="../third_party/sidecart/third_party/Readmore.js/readmore.min.js"></script>
     <script type="text/javascript" src="../third_party/sidecart/third_party/jslib/src/js/Styler.js"></script>
     <script type="text/javascript" src="../third_party/sidecart/third_party/jslib/src/js/jQueryPlus.js"></script>
-	<script type="text/javascript" src="../third_party/sidecart/third_party/jslib/src/js/StringExt.js"></script>
+    <script type="text/javascript" src="../third_party/sidecart/third_party/jslib/src/js/StringExt.js"></script>
     <script src="../src/js/perseusld.js"></script>
     <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Converter.js"></script>
     <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Sanitizer.js"></script>
     <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Editor.js"></script>
     <script type="text/javascript">
+
+        var sidecart = null;
         jQuery().ready( function() {
             //------------------------------------------------------------
-            //  Startup sidecart when change event is triggered. 
+            //  Get a sidecart instance.
             //------------------------------------------------------------
-            jQuery("#annotation_query_results").on( 'PerseusLD--LOADED', function( _e ) {
-                jQuery('#sidecartRight').sidecart({
-                    side: 'right',
-                    views: [
-                        {
-                            id: 'annotations',
-                            type: 'annotations',
-                            link: 'A',
-                            src: '',
-                            //------------------------------------------------------------
-                            //  This callback function runs once when the view is first
-                            //  initialized.
-                            //------------------------------------------------------------
-                            init: function() {
-                                jQuery( '#sidecartRight #annotations' ).empty();
-                                var results = jQuery("#annotation_query_results .perseusld_results").html();
-                                jQuery( '#sidecartRight #annotations' ).html( results );
-                                jQuery('.annotation').readmore({
-                                    maxHeight: 200,
-                                    moreLink: '<a href="#">More</a>',
-                                    lessLink: '<a href="#">Less</a>'
-                                });
-                            },
-                            //------------------------------------------------------------
-                            //  This callback function runs everytime a view's tab is clicked
-                            //------------------------------------------------------------
-                            refresh: function() {}
-                        }
-                    ]
-                });
+            sidecart = jQuery('#sidecartRight').sidecart({
+                side: 'right'
+            }).data('#sidecartRight');
+            //------------------------------------------------------------
+            //  Add sidecart views as PerseusLD data is loaded.
+            //------------------------------------------------------------
+            jQuery("#annotation_query_results").on( 'PerseusLD--LOADED', function( _e, _extra ) {
+                //------------------------------------------------------------
+                //  Check event extra object to see if "last" item is true.
+                //------------------------------------------------------------
+                if ( _extra['last'] == true ) {
+                    //------------------------------------------------------------
+                    //  Build different views for the different events.
+                    //------------------------------------------------------------
+                    switch ( _extra['type'] ) {
+                        //------------------------------------------------------------
+                        //  Annotations
+                        //------------------------------------------------------------
+                        case 'artifact':
+                            sidecart.addView({
+                                id: 'annotations',
+                                type: 'annotations',
+                                link: 'Artifacts',
+                                src: '',
+                                //------------------------------------------------------------
+                                //  This callback function runs once when the view is first
+                                //  initialized.
+                                //------------------------------------------------------------
+                                init: function() {
+                                    jQuery( '#sidecartRight #annotations' ).empty();
+                                    var results = jQuery("#annotation_query_results .perseusld_results").html();
+                                    jQuery( '#sidecartRight #annotations' ).html( results );
+                                    jQuery('.annotation').readmore({
+                                        maxHeight: 200,
+                                        moreLink: '<a href="#">More</a>',
+                                        lessLink: '<a href="#">Less</a>'
+                                    });
+                                },
+                                //------------------------------------------------------------
+                                //  This callback function runs everytime a view's tab is clicked
+                                //------------------------------------------------------------
+                                refresh: function() {}
+                            });
+                            break;
+                    }
+                }
             });
             //------------------------------------------------------------
             //  Start it up!
