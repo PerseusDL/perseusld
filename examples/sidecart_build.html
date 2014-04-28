@@ -5,6 +5,12 @@
         <link href="../src/css/perseusld.css" rel="stylesheet" type="text/css"/>
         <link href="../third_party/sidecart/src/css/sidecart.css" rel="stylesheet" type="text/css"/>
     </head>
+    <style type="text/css">
+        body > .perseusld,
+        #text-contents {
+            display: none;
+        }
+    </style>
     <body>
         <!-- Side Cart DOM -->
         <div id="sidecartRight"></div>
@@ -93,15 +99,10 @@
         </div>
     </body>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script type="text/javascript" src="../third_party/sidecart/src/js/sidecart.js"></script>
-    <script type="text/javascript" src="../third_party/sidecart/third_party/Readmore.js/readmore.min.js"></script>
-    <script type="text/javascript" src="../third_party/sidecart/third_party/jslib/src/js/Styler.js"></script>
-    <script type="text/javascript" src="../third_party/sidecart/third_party/jslib/src/js/jQueryPlus.js"></script>
-    <script type="text/javascript" src="../third_party/sidecart/third_party/jslib/src/js/StringExt.js"></script>
-    <script src="../src/js/perseusld.js"></script>
     <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Converter.js"></script>
     <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Sanitizer.js"></script>
     <script src="http://sosol.perseids.org/sosol/javascripts/pagedown/Markdown.Editor.js"></script>
+    <script src="../perseusld.min.js"></script>
     <script type="text/javascript">
 
         var sidecart = null;
