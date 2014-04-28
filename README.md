@@ -13,7 +13,7 @@ Perseus Linked Data Widget - Retrieve RDF data with AJAX calls and format it for
 
         ./fuseki-server --file=[ path-to-this-repo ]/tests/data/linkeddatatest.rdf /ds
 
-3. Update the @content attribute, `<meta name='perseusld_SparqlEndpoint' content="http://127.0.0.1:3030/ds/query?query="/>`, in the example html files to point at your triple store's endpoint 
+3. Update the @endpoint attribute, in the example html files to point at your triple store's endpoint if it isn't running on "localhost:3030"
 
 4. Copy or link [ path-to-this-repo ]/tests/data/annotations to [ apache-document-root ]/annotations. If you aren't running an Apache server accessible at http://localhost then update linkeddatatest.rdf changing the @rdf:about attribute to use the url of your Apache server.
 

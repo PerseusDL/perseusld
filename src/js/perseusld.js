@@ -54,22 +54,22 @@
         //------------------------------------------------------------
         //  XSLT transform and data
         //------------------------------------------------------------
-        self.xslt_url = jQuery( self.elem ).attr("resourceurl") + "/xslt/oactohtml.xsl";
+        self.xslt_url = jQuery( self.elem ).attr("lib_root") + "/xslt/oactohtml.xsl";
         self.xslt_processor = null;
         self.sbj_elemname = jQuery( jQuery( self.elem ).attr("sbj") );
         self.verb = jQuery( self.elem ).attr("verb");
         self.dataset = jQuery( self.elem ).attr("set");
         self.formatter = jQuery( self.elem ).attr("formatter");
-        self.datatype = jQuery( self.elem ).attr("sbjclass");
+        self.datatype = jQuery( self.elem ).attr("class");
         //------------------------------------------------------------
         //  Other goodies
         //------------------------------------------------------------
         self.format = jQuery( self.elem ).attr("serialization");
         self.max_results = jQuery( self.elem ).attr("pagemax");
         //------------------------------------------------------------
-        //  Find the submect
+        //  Find the type of subject
         //------------------------------------------------------------
-        self.sbj_elem = jQuery( "*[typeof='http://lawd.info/ontology/ConceptualWork']", self.sbj_elemname );
+        self.sbj_elem = jQuery( "*[typeof='http://lawd.info/ontology/Citation']", self.sbj_elemname );
         if ( self.sbj_elem.length == 0 ) {
             self.sbj_elem = jQuery("*[typeof='http://www.cidoc-crm.org/cidoc-crm/E22_Man-Made_Object']", self.sbj_elemname );
         }
@@ -107,7 +107,7 @@
         var self = this;  
         var dataset_query = "";
         if ( self.dataset ) {
-            dataset_query = "FROM <" + dataset + "> "
+            dataset_query = "FROM <" + self.dataset + "> "
         }
         //------------------------------------------------------------
         // Retrieve all annotations from the requested set for this work
@@ -356,14 +356,21 @@
      *      }
      *        
      */
-    PerseusLD.prototype.filter_text_annotations = function( _results ) { 
+    PerseusLD.prototype.filter_text_annotations = function( _results ) {
+        var self = this;
+        //------------------------------------------------------------
+        //  Grab work, text, and passage elements
+        //------------------------------------------------------------
         var cts_work = jQuery( "*[typeof='http://lawd.info/ontology/ConceptualWork']", self.sbj_elem );
         var cts_text = jQuery( "*[typeof='http://lawd.info/ontology/WrittenWork']", self.sbj_elem );
         var cts_passage = jQuery( "*[typeof='http://lawd.info/ontology/Citation']", self.sbj_elem );
+        
         var work_uri = self._strip_uri_prefix( cts_work.attr("resource") );
         var text_uri = self._strip_uri_prefix( cts_text.attr("resource") );
+
         var text_uri_regex = "^" + text_uri + "jQuery";
         var work_uri_regex = "^" + work_uri + "jQuery";
+        
         var version_passage_start = null;
         var version_passage_end = null;
         var annotations = { "work": [], "text" : [], "passage" : [] };
@@ -462,12 +469,12 @@
         self.results.work = jQuery.grep(annotations.work, function(a) { 
             return jQuery.inArray( a, self.results.passage ) == -1 && jQuery.inArray(a,self.results.text) == -1;
         });
-        var hasPassage = PerseusLD.results.passage.length > 0;
-        var hasText = PerseusLD.results.text.length > 0;
-        var hasWork = PerseusLD.results.work.length > 0;
-        if ( hasPassage ) { self._show_annotations('passage',a_elem,0); }
-        if ( hasText ) { self._show_annotations('text',a_elem,0); }
-        if ( hasWork ) { self._show_annotations('work',a_elem,0); }
+        var hasPassage = self.results.passage.length > 0;
+        var hasText = self.results.text.length > 0;
+        var hasWork = self.results.work.length > 0;
+        if ( hasPassage ) { self._show_annotations( 'passage', 0 ); }
+        if ( hasText ) { self._show_annotations( 'text',a_elem,0 ); }
+        if ( hasWork ) { self._show_annotations( 'work',a_elem,0 ); }
     };
 
     //----------------
