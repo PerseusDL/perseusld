@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:oac="http://www.openannotation.org/ns/" xmlns:cnt="http://www.w3.org/2008/content#">
+  <Annotation xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="http://data.perseus.org/collections/urn:cite:perseus:mythcomm.41.1">
+    <hasTarget xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://data.perseus.org/artifacts/vase/Berlin+F+2290"/>
+    <hasTarget xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://data.perseus.org/artifacts/vase/Boston+00.499"/>
+    <hasTarget xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://data.perseus.org/artifacts/vase/Malibu+87.AE.22"/>
+    <hasBody xmlns="http://www.w3.org/ns/oa#">
+      <ContentAsText xmlns="http://www.w3.org/2008/content#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="http://data.perseus.org/collections/urn:cite:perseus:mythcomm.41.1/commentary">
+        <type xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://purl.org/dc/dcmitype/Text"/>
+        <format xmlns="http://purl.org/dc/elements/1.1/">text/plain</format>
+        <language xmlns="http://purl.org/dc/elements/1.1/">eng</language>
+        <chars xmlns="http://www.w3.org/2008/content#">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</chars>
+      </ContentAsText>
+    </hasBody>
+    <annotatedBy xmlns="http://www.w3.org/ns/oa#">
+      <Person xmlns="http://xmlns.com/foaf/0.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="http://data.perseus.org/sosol/users/Rachel%20Rubinstein"/>
+    </annotatedBy>
+    <motivatedBy xmlns="http://www.w3.org/ns/oa#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://www.w3.org/ns/oa#commenting"/>
+    <annotatedAt xmlns="http://www.w3.org/ns/oa#">2013-11-01T03:22:03+00:00</annotatedAt>
+  </Annotation>
+</rdf:RDF>

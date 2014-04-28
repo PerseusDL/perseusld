@@ -1,6 +1,7 @@
 .oac_annotation {
 	padding-bottom: 20px;
-	margin-bottom: 5px;
+	margin-bottom: 40px;
+	border-bottom: 2px dotted #555;
 }
 .oac_annotation .oac_annotation_uri {
 	font-size: 10px;

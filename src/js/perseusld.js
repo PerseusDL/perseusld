@@ -195,7 +195,7 @@
         //------------------------------------------------------------
         // make sure we don't have any old results loaded
         //------------------------------------------------------------
-        if ( _start == 0) {
+        if ( _start == 0 ) {
             jQuery( ".perseusld_results.perseusld_"+_type, self.elem ).children().remove();
         } 
         else {
@@ -314,7 +314,9 @@
         //------------------------------------------------------------
         //  Let everyone know you're ready.
         //------------------------------------------------------------
-        jQuery( self.elem ).trigger( self.events['loaded'], [ _opts, self.elem ] );
+        if ( _opts['last'] ==  true ) {
+            jQuery( self.elem ).trigger( self.events['loaded'], [ _opts, self.elem ] );
+        }
     }
     
     /**

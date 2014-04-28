@@ -74,32 +74,27 @@
                 //------------------------------------------------------------
                 //  Check event extra object to see if "last" item is true.
                 //------------------------------------------------------------
-                if ( _extra['last'] == true ) {
-                    sidecart.addView({
-                        id: 'annotations_1',
-                        type: 'annotations',
-                        link: 'Artifacts',
-                        src: '',
-                        //------------------------------------------------------------
-                        //  This callback function runs once when the view is first
-                        //  initialized.
-                        //------------------------------------------------------------
-                        init: function() {
-                            jQuery( '#sidecartRight #annotations_1' ).empty();
-                            var results = jQuery("#query_results_1 .perseusld_results").html();
-                            jQuery( '#sidecartRight #annotations_1' ).html( results );
-                            jQuery('#sidecartRight #annotations_1 .annotation').readmore({
-                                maxHeight: 200,
-                                moreLink: '<a href="#">More</a>',
-                                lessLink: '<a href="#">Less</a>'
-                            });
-                        },
-                        //------------------------------------------------------------
-                        //  This callback function runs everytime a view's tab is clicked
-                        //------------------------------------------------------------
-                        refresh: function() {}
-                    });
-                }
+                sidecart.addView({
+                    id: 'annotations_1',
+                    type: 'annotations',
+                    link: 'Artifacts',
+                    src: '#query_results_1 .perseusld_results',
+                    //------------------------------------------------------------
+                    //  This callback function runs once when the view is first
+                    //  initialized.
+                    //------------------------------------------------------------
+                    init: function() {;
+                        jQuery('#sidecartRight #annotations_1 .annotation').readmore({
+                            maxHeight: 200,
+                            moreLink: '<a href="#">More</a>',
+                            lessLink: '<a href="#">Less</a>'
+                        });
+                    },
+                    //------------------------------------------------------------
+                    //  This callback function runs everytime a view's tab is clicked
+                    //------------------------------------------------------------
+                    refresh: function() {}
+                });
             });
             
             //------------------------------------------------------------
@@ -109,32 +104,27 @@
                 //------------------------------------------------------------
                 //  Check event extra object to see if "last" item is true.
                 //------------------------------------------------------------
-                if ( _extra['last'] == true ) {
-                    sidecart.addView({
-                        id: 'annotations_2',
-                        type: 'annotations',
-                        link: 'Artifacts-2',
-                        src: '',
-                        //------------------------------------------------------------
-                        //  This callback function runs once when the view is first
-                        //  initialized.
-                        //------------------------------------------------------------
-                        init: function() {
-                            jQuery( '#sidecartRight #annotations_2' ).empty();
-                            var results = jQuery("#query_results_2 .perseusld_results").html();
-                            jQuery( '#sidecartRight #annotations_2' ).html( results );
-                            jQuery('#sidecartRight #annotations_2 .annotation').readmore({
-                                maxHeight: 200,
-                                moreLink: '<a href="#">More</a>',
-                                lessLink: '<a href="#">Less</a>'
-                            });
-                        },
-                        //------------------------------------------------------------
-                        //  This callback function runs everytime a view's tab is clicked
-                        //------------------------------------------------------------
-                        refresh: function() {}
-                    });
-                }
+                sidecart.addView({
+                    id: 'annotations_2',
+                    type: 'annotations',
+                    link: 'Artifacts-2',
+                    src: '#query_results_2 .perseusld_results',
+                    //------------------------------------------------------------
+                    //  This callback function runs once when the view is first
+                    //  initialized.
+                    //------------------------------------------------------------
+                    init: function() {
+                        jQuery('#sidecartRight #annotations_2 .annotation').readmore({
+                            maxHeight: 200,
+                            moreLink: '<a href="#">More</a>',
+                            lessLink: '<a href="#">Less</a>'
+                        });
+                    },
+                    //------------------------------------------------------------
+                    //  This callback function runs everytime a view's tab is clicked
+                    //------------------------------------------------------------
+                    refresh: function() {}
+                });
             });
             
             //------------------------------------------------------------
