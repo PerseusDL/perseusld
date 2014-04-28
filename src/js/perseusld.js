@@ -54,18 +54,18 @@
         //------------------------------------------------------------
         //  XSLT transform and data
         //------------------------------------------------------------
-        self.xslt_url = jQuery( self.elem ).attr("data-resourceurl") + "/xslt/oactohtml.xsl";
+        self.xslt_url = jQuery( self.elem ).attr("resourceurl") + "/xslt/oactohtml.xsl";
         self.xslt_processor = null;
-        self.sbj_elemname = jQuery( jQuery( self.elem ).attr("data-sbj") );
-        self.verb = jQuery( self.elem ).attr("data-verb");
-        self.dataset = jQuery( self.elem ).attr("data-set");
-        self.formatter = jQuery( self.elem ).attr("data-formatter");
-        self.datatype = jQuery( self.elem ).attr("data-sbjclass");
+        self.sbj_elemname = jQuery( jQuery( self.elem ).attr("sbj") );
+        self.verb = jQuery( self.elem ).attr("verb");
+        self.dataset = jQuery( self.elem ).attr("set");
+        self.formatter = jQuery( self.elem ).attr("formatter");
+        self.datatype = jQuery( self.elem ).attr("sbjclass");
         //------------------------------------------------------------
         //  Other goodies
         //------------------------------------------------------------
-        self.format = jQuery( self.elem ).attr("data-serialization");
-        self.max_results = jQuery( self.elem ).attr("data-pagemax");
+        self.format = jQuery( self.elem ).attr("serialization");
+        self.max_results = jQuery( self.elem ).attr("pagemax");
         //------------------------------------------------------------
         //  Find the submect
         //------------------------------------------------------------
@@ -73,7 +73,7 @@
         if ( self.sbj_elem.length == 0 ) {
             self.sbj_elem = jQuery("*[typeof='http://www.cidoc-crm.org/cidoc-crm/E22_Man-Made_Object']", self.sbj_elemname );
         }
-        if (self.sbj_elem.length == 0) {
+        if ( self.sbj_elem.length == 0 ) {
             self.sbj_elem = jQuery("*[typeof='http://www.cidoc-crm.org/cidoc-crm/E53_Place']", self.sbj_elemname );
         }
         if ( self.sbj_elem.length == 0) {
@@ -83,7 +83,7 @@
         //  Remove the uri prefix - 
         //  Let's work just with the URNs to keep it simple
         //------------------------------------------------------------
-        self.queryuri = jQuery( "meta[name='perseusld_SparqlEndpoint']" ).attr( "content" );
+        self.queryuri = jQuery( self.elem ).attr("endpoint");
         //------------------------------------------------------------
         //  Need to use quote meta to escape the uri because it
         //  could contain regex protected chars like + 
@@ -205,7 +205,6 @@
             jQuery( ".perseusld_results.perseusld_"+_type+" .more_annotations", self.elem ).hide();
         }
         jQuery( ".perseusld_results.perseusld_"+_type, self.elem ).addClass( "loading" );
-        self.show();
         var end = _start + self.max_results-1;
         if ( end > self.results[_type].length-1 ) {
             end = self.results[_type].length-1;

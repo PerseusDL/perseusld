@@ -2,12 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title></title>
-        <meta name='perseusld_SparqlEndpoint' content="http://localhost:3030/ds/query?query="/>
         <link href="../src/css/perseusld.css" rel="stylesheet" type="text/css"/>
         <link href="../third_party/sidecart/src/css/sidecart.css" rel="stylesheet" type="text/css"/>
     </head>
+    <style type="text/css">
+        body > .perseusld {
+            display: none;
+        }
+    </style>
     <body>
-        <!-- Side Cart Dom -->
+        <!-- Side Cart DOM -->
         <div id="sidecartRight"></div>
         
         <!-- PerseusLD Widget Config -->
@@ -18,24 +22,26 @@
         </div>
         
         <!-- First Query -->
-        <div id="query_results_1" 
-            data-serialization="oac"
-            data-sbj="#data-contents" 
-            data-sbjclass='object' 
-            data-verb="http://www.w3.org/ns/oa#hasTarget" 
-            data-formatter="filter_artifact_annotations"
-            data-resourceurl="http://localhost/perseusld/src">
+        <div class="perseusld" id="query_results_1" 
+            serialization="oac"
+            sbj="#data-contents" 
+            sbjclass='object' 
+            verb="http://www.w3.org/ns/oa#hasTarget" 
+            formatter="filter_artifact_annotations"
+            resourceurl="http://localhost/perseusld/src"
+            endpoint="http://localhost:3030/ds/query?query=">
                 <div class="perseusld_results perseusld_artifact"></div>
         </div>
         
         <!-- Second Query -->
-        <div id="query_results_2" 
-            data-serialization="oac"
-            data-sbj="#data-contents" 
-            data-sbjclass='object' 
-            data-verb="http://www.w3.org/ns/oa#hasTarget" 
-            data-formatter="filter_artifact_annotations"
-            data-resourceurl="http://localhost/perseusld/src">
+        <div class="perseusld" id="query_results_2" 
+            serialization="oac"
+            sbj="#data-contents" 
+            sbjclass='object' 
+            verb="http://www.w3.org/ns/oa#hasTarget" 
+            formatter="filter_artifact_annotations"
+            resourceurl="http://localhost/perseusld/src"
+            endpoint="http://localhost:3030/ds/query?query=">
                 <div class="perseusld_results perseusld_artifact"></div>
         </div>
         
