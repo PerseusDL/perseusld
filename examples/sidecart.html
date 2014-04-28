@@ -7,9 +7,18 @@
         <link href="../third_party/sidecart/src/css/sidecart.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
+        <!-- Side Cart Dom -->
         <div id="sidecartRight"></div>
-        <div id="annotation_query_results" 
-            data-activator="#annotation_query_button"
+        
+        <!-- PerseusLD Widget Config -->
+        <div id="data" class="widget secondary">
+            <div id="data-contents" class="contents">
+                <div resource="http://data.perseus.org/artifacts/vase/Malibu+87.AE.22" typeof="http://www.cidoc-crm.org/cidoc-crm/E22_Man-Made_Object"></div>
+            </div>
+        </div>
+        
+        <!-- First Query -->
+        <div id="query_results_1" 
             data-serialization="oac"
             data-sbj="#data-contents" 
             data-sbjclass='object' 
@@ -18,11 +27,18 @@
             data-resourceurl="http://localhost/perseusld/src">
                 <div class="perseusld_results perseusld_artifact"></div>
         </div>
-        <div id="data" class="widget secondary">
-            <div id="data-contents" class="contents">
-                <div resource="http://data.perseus.org/artifacts/vase/Malibu+87.AE.22" typeof="http://www.cidoc-crm.org/cidoc-crm/E22_Man-Made_Object"></div>
-            </div>
+        
+        <!-- Second Query -->
+        <div id="query_results_2" 
+            data-serialization="oac"
+            data-sbj="#data-contents" 
+            data-sbjclass='object' 
+            data-verb="http://www.w3.org/ns/oa#hasTarget" 
+            data-formatter="filter_artifact_annotations"
+            data-resourceurl="http://localhost/perseusld/src">
+                <div class="perseusld_results perseusld_artifact"></div>
         </div>
+        
     </body>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script type="text/javascript" src="../third_party/sidecart/src/js/sidecart.js"></script>
@@ -44,54 +60,82 @@
             sidecart = jQuery('#sidecartRight').sidecart({
                 side: 'right'
             }).data('#sidecartRight');
+            
             //------------------------------------------------------------
             //  Add sidecart views as PerseusLD data is loaded.
             //------------------------------------------------------------
-            jQuery("#annotation_query_results").on( 'PerseusLD--LOADED', function( _e, _extra ) {
+            jQuery("#query_results_1").on( 'PerseusLD--LOADED', function( _e, _extra ) {
                 //------------------------------------------------------------
                 //  Check event extra object to see if "last" item is true.
                 //------------------------------------------------------------
                 if ( _extra['last'] == true ) {
-                    //------------------------------------------------------------
-                    //  Build different views for the different events.
-                    //------------------------------------------------------------
-                    switch ( _extra['type'] ) {
+                    sidecart.addView({
+                        id: 'annotations_1',
+                        type: 'annotations',
+                        link: 'Artifacts',
+                        src: '',
                         //------------------------------------------------------------
-                        //  Annotations
+                        //  This callback function runs once when the view is first
+                        //  initialized.
                         //------------------------------------------------------------
-                        case 'artifact':
-                            sidecart.addView({
-                                id: 'annotations',
-                                type: 'annotations',
-                                link: 'Artifacts',
-                                src: '',
-                                //------------------------------------------------------------
-                                //  This callback function runs once when the view is first
-                                //  initialized.
-                                //------------------------------------------------------------
-                                init: function() {
-                                    jQuery( '#sidecartRight #annotations' ).empty();
-                                    var results = jQuery("#annotation_query_results .perseusld_results").html();
-                                    jQuery( '#sidecartRight #annotations' ).html( results );
-                                    jQuery('.annotation').readmore({
-                                        maxHeight: 200,
-                                        moreLink: '<a href="#">More</a>',
-                                        lessLink: '<a href="#">Less</a>'
-                                    });
-                                },
-                                //------------------------------------------------------------
-                                //  This callback function runs everytime a view's tab is clicked
-                                //------------------------------------------------------------
-                                refresh: function() {}
+                        init: function() {
+                            jQuery( '#sidecartRight #annotations_1' ).empty();
+                            var results = jQuery("#query_results_1 .perseusld_results").html();
+                            jQuery( '#sidecartRight #annotations_1' ).html( results );
+                            jQuery('#sidecartRight #annotations_1 .annotation').readmore({
+                                maxHeight: 200,
+                                moreLink: '<a href="#">More</a>',
+                                lessLink: '<a href="#">Less</a>'
                             });
-                            break;
-                    }
+                        },
+                        //------------------------------------------------------------
+                        //  This callback function runs everytime a view's tab is clicked
+                        //------------------------------------------------------------
+                        refresh: function() {}
+                    });
                 }
             });
+            
+            //------------------------------------------------------------
+            //  Add sidecart views as PerseusLD data is loaded.
+            //------------------------------------------------------------
+            jQuery("#query_results_2").on( 'PerseusLD--LOADED', function( _e, _extra ) {
+                //------------------------------------------------------------
+                //  Check event extra object to see if "last" item is true.
+                //------------------------------------------------------------
+                if ( _extra['last'] == true ) {
+                    sidecart.addView({
+                        id: 'annotations_2',
+                        type: 'annotations',
+                        link: 'Artifacts-2',
+                        src: '',
+                        //------------------------------------------------------------
+                        //  This callback function runs once when the view is first
+                        //  initialized.
+                        //------------------------------------------------------------
+                        init: function() {
+                            jQuery( '#sidecartRight #annotations_2' ).empty();
+                            var results = jQuery("#query_results_2 .perseusld_results").html();
+                            jQuery( '#sidecartRight #annotations_2' ).html( results );
+                            jQuery('#sidecartRight #annotations_2 .annotation').readmore({
+                                maxHeight: 200,
+                                moreLink: '<a href="#">More</a>',
+                                lessLink: '<a href="#">Less</a>'
+                            });
+                        },
+                        //------------------------------------------------------------
+                        //  This callback function runs everytime a view's tab is clicked
+                        //------------------------------------------------------------
+                        refresh: function() {}
+                    });
+                }
+            });
+            
             //------------------------------------------------------------
             //  Start it up!
             //------------------------------------------------------------
-            jQuery( "#annotation_query_results" ).PerseusLD();
+            jQuery( "#query_results_1" ).PerseusLD();
+            jQuery( "#query_results_2" ).PerseusLD();
         });
     </script>
 </html>

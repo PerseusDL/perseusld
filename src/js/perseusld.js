@@ -315,7 +315,7 @@
         //------------------------------------------------------------
         //  Let everyone know you're ready.
         //------------------------------------------------------------
-        jQuery( self.elem ).trigger( self.events['loaded'], [ _opts ] );
+        jQuery( self.elem ).trigger( self.events['loaded'], [ _opts, self.elem ] );
     }
     
     /**
