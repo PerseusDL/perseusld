@@ -165,7 +165,7 @@
      */
     PerseusLD.prototype._strip_uri_prefix = function( _str ) {
         var stripped = _str;
-        var match = _str.match("^https?://.*?/(urn:cts:.*)jQuery");
+        var match = _str.match("^https?://.*?/(urn:cts:.*)$");
         if ( match != null ) {
             stripped = match[1];
         }
@@ -368,8 +368,8 @@
         var work_uri = self._strip_uri_prefix( cts_work.attr("resource") );
         var text_uri = self._strip_uri_prefix( cts_text.attr("resource") );
 
-        var text_uri_regex = "^" + text_uri + "jQuery";
-        var work_uri_regex = "^" + work_uri + "jQuery";
+        var text_uri_regex = "^" + text_uri + "$";
+        var work_uri_regex = "^" + work_uri + "$";
         
         var version_passage_start = null;
         var version_passage_end = null;
@@ -379,7 +379,7 @@
         //------------------------------------------------------------
         if ( cts_passage.length > 0 ) {
             var passage_uri = self._strip_uri_prefix( cts_passage.attr("resource") );
-            var passage_regex = new RegExp("^" + text_uri + ":(.+)jQuery");
+            var passage_regex = new RegExp("^" + text_uri + ":(.+)$");
             var passage_match = passage_regex.exec(passage_uri);
             if ( passage_match != null ) {
                 var version_passage = passage_match[1];
