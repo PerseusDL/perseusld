@@ -54,18 +54,18 @@
         //------------------------------------------------------------
         //  XSLT transform and data
         //------------------------------------------------------------
-        self.xslt_url = jQuery( self.elem ).attr("lib_root") + "/xslt/oactohtml.xsl";
+        self.xslt_url = jQuery( self.elem ).attr("data-lib_root") + "/xslt/oactohtml.xsl";
         self.xslt_processor = null;
-        self.sbj_elemname = jQuery( jQuery( self.elem ).attr("sbj") );
-        self.verb = jQuery( self.elem ).attr("verb");
-        self.dataset = jQuery( self.elem ).attr("set");
-        self.formatter = jQuery( self.elem ).attr("formatter");
-        self.datatype = jQuery( self.elem ).attr("class");
+        self.sbj_elemname = jQuery( jQuery( self.elem ).attr("data-sbj") );
+        self.verb = jQuery( self.elem ).attr("data-verb");
+        self.dataset = jQuery( self.elem ).attr("data-set");
+        self.formatter = jQuery( self.elem ).attr("data-formatter");
+        self.datatype = jQuery( self.elem ).attr("data-class");
         //------------------------------------------------------------
         //  Other goodies
         //------------------------------------------------------------
-        self.format = jQuery( self.elem ).attr("serialization");
-        self.max_results = jQuery( self.elem ).attr("pagemax");
+        self.format = jQuery( self.elem ).attr("data-serialization");
+        self.max_results = jQuery( self.elem ).attr("data-pagemax");
         //------------------------------------------------------------
         //  Find the type of subject
         //------------------------------------------------------------
@@ -83,7 +83,7 @@
         //  Remove the uri prefix - 
         //  Let's work just with the URNs to keep it simple
         //------------------------------------------------------------
-        self.queryuri = jQuery( self.elem ).attr("endpoint");
+        self.queryuri = jQuery( self.elem ).attr("data-endpoint");
         //------------------------------------------------------------
         //  Need to use quote meta to escape the uri because it
         //  could contain regex protected chars like + 
