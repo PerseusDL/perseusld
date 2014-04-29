@@ -70,7 +70,14 @@
         //  Find the type of subject
         //------------------------------------------------------------
         self.sbj_elem = jQuery( "*[typeof='http://lawd.info/ontology/Citation']", self.sbj_elemname );
-        if ( self.sbj_elem.length == 0 ) {
+        if ( self.sbj_elem.length != 0 ) {
+            //----------------------------------------------------------
+            //  it's a text resource so query on the conceptual work and
+            //  Remove the uri prefix - just the URN to keep it simple
+            //----------------------------------------------------------
+            self.sbj = self._strip_uri_prefix(jQuery( "*[typeof='http://lawd.info/ontology/ConceptualWork']", self.sbj_elem ).attr("resource")); 
+        }
+        else {
             self.sbj_elem = jQuery("*[typeof='http://www.cidoc-crm.org/cidoc-crm/E22_Man-Made_Object']", self.sbj_elemname );
         }
         if ( self.sbj_elem.length == 0 ) {
@@ -80,15 +87,20 @@
             return;
         }
         //------------------------------------------------------------
-        //  Remove the uri prefix - 
-        //  Let's work just with the URNs to keep it simple
+        // assign the subject if we haven't already - we will have if
+        // if it's a text resource
         //------------------------------------------------------------
+        if ( !self.sbj ) {
+            self.sbj = self.sbj_elem.attr("resource");   
+        }
         self.queryuri = jQuery( self.elem ).attr("data-endpoint");
+
+       
         //------------------------------------------------------------
         //  Need to use quote meta to escape the uri because it
         //  could contain regex protected chars like + 
         //------------------------------------------------------------ 
-        self.sbj = "\\\\Q" + self._strip_uri_prefix( self.sbj_elem.attr("resource") ) + "\\\\E";    
+        self.sbj = "\\\\Q" + self.sbj + "\\\\E";    
     }
     
     /**
@@ -363,7 +375,8 @@
         //------------------------------------------------------------
         var cts_work = jQuery( "*[typeof='http://lawd.info/ontology/ConceptualWork']", self.sbj_elem );
         var cts_text = jQuery( "*[typeof='http://lawd.info/ontology/WrittenWork']", self.sbj_elem );
-        var cts_passage = jQuery( "*[typeof='http://lawd.info/ontology/Citation']", self.sbj_elem );
+        // the passage is the subject
+        var cts_passage = self.sbj_elem;
         
         var work_uri = self._strip_uri_prefix( cts_work.attr("resource") );
         var text_uri = self._strip_uri_prefix( cts_text.attr("resource") );
@@ -450,7 +463,7 @@
                         }
                         if (target_passage_start >= version_passage_start &&
                             (version_passage_end == null || target_passage_end <= version_passage_end)) {
-                                annotations.passage.push(a_results[i].annotation.value);
+                                annotations.passage.push(_results[i].annotation.value);
                         }
                     }
                 }
@@ -473,8 +486,8 @@
         var hasText = self.results.text.length > 0;
         var hasWork = self.results.work.length > 0;
         if ( hasPassage ) { self._show_annotations( 'passage', 0 ); }
-        if ( hasText ) { self._show_annotations( 'text',a_elem,0 ); }
-        if ( hasWork ) { self._show_annotations( 'work',a_elem,0 ); }
+        if ( hasText ) { self._show_annotations( 'text',0 ); }
+        if ( hasWork ) { self._show_annotations( 'work',0 ); }
     };
 
     //----------------
