@@ -24,19 +24,24 @@
     </xsl:template>
     
     <xsl:template match="oac:Annotation">
+        <xsl:variable name="target">
+            <xsl:apply-templates select="oac:hasTarget"/>
+        </xsl:variable>
         <div class="oac_annotation" about="{@rdf:about}" typeof="oac:Annotation">
             <xsl:apply-templates select="rdfs:label"/>
             <xsl:apply-templates select="oac:motivatedBy"/>
-            <a href="{@rdf:about}" class="oac_annotation_uri">Permalink</a>
+            <a href="{@rdf:about}" class="oac_annotation_uri"  title="Annotation on {$target}">Permalink</a>
             <div class="annotation">
                 <xsl:apply-templates select="oac:hasBody"/>
             </div>
-            <xsl:variable name="target">
-                <xsl:apply-templates select="oac:hasTarget"/>
-            </xsl:variable>
-            <div class="metadata" title="Annotation on {$target}">
+            <div class="metadata">
                 <xsl:apply-templates select="oac:annotatedBy"/>
                 <xsl:apply-templates select="oac:annotatedAt"/>
+                <!-- TODO eventually the rights should be coming from the annotation -->
+                <div class="copyright">
+                    This work is licensed under a 
+                    <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/us/">Creative Commons Attribution-ShareAlike 3.0 United States License</a>.
+                </div>
             </div>
 			<div class="clear"></div>
         </div>
@@ -114,7 +119,7 @@
     
     <xsl:template match="foaf:name">
         <div class="foaf_name" property="foaf:name">
-            <xsl:value-of select="."/>
+            <a href="{../@rdf:about}"><xsl:value-of select="."/></a>
         </div>
     </xsl:template>
     
