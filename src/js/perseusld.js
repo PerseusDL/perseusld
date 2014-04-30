@@ -461,8 +461,12 @@
                         else {
                             target_passage_start = target_passage_end = target_passage.replace(/[@#].*$/, '');
                         }
+                        //-------------------------------------------------------------
+                        // at least the start of the target passage should be contained within the 
+                        // displayed version passge. The end might extend past what is displayed.
+                        //--------------------------------------------------------------
                         if (target_passage_start >= version_passage_start &&
-                            (version_passage_end == null || target_passage_end <= version_passage_end)) {
+                            (version_passage_end == null || target_passage_start <= version_passage_end)) {
                                 annotations.passage.push(_results[i].annotation.value);
                         }
                     }
