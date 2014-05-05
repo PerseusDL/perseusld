@@ -317,7 +317,7 @@
     PerseusLD.prototype._add_annotation = function( _xml, _elem, _opts ) {
         var self = this;
         var html = self.xslt_processor.transformToDocument( _xml );
-        var node = document.importNode( jQuery( 'div', html ).get(0) );
+        var node = document.importNode( jQuery( 'div', html ).get(0), true );
         var converter = new Markdown.getSanitizingConverter();
         var textElem = jQuery( ".oac_cnt_chars", node ).get(0);
         var ptext = converter.makeHtml( jQuery( textElem ).html() );
