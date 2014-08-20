@@ -19,6 +19,16 @@
         <motivation type="http://www.w3.org/ns/oa#linking">Links</motivation>
     </xsl:variable>
     
+    <xsl:variable name="titles">
+        <collection uri="http://data.perseus.org/collections/urn:cite:perseus:mythcomm">            
+            These Annotations are a series created as part of an assignment for Prof. Marie-Claire Beaulieu's 
+            Fall 2013 Classical mythology course. Students submitted short annotations connected to specific 
+            passages or art objects. Teaching Assistants edited and reviewed each annotation by using the 
+            Perseids Collaborative Editing  Platform. Students were asked to provide their own analysis on 
+            the significance of each passage or object to the larger classical world. 
+        </collection>
+    </xsl:variable>
+    
     <xsl:template match="/rdf:RDF">
         <xsl:apply-templates select="oac:Annotation"/>
     </xsl:template>
@@ -27,10 +37,13 @@
         <xsl:variable name="target">
             <xsl:apply-templates select="oac:hasTarget"/>
         </xsl:variable>
-        <div class="oac_annotation" about="{@rdf:about}" typeof="oac:Annotation">
+        <xsl:variable name="id" select="@rdf:about"/>
+        <xsl:variable name="title" select="exsl:node-set($titles)/collection[starts-with($id,@uri)]"/>
+        <div class="oac_annotation" about="{@rdf:about}" typeof="oac:Annotation" title="{normalize-space($title)}">
             <xsl:apply-templates select="rdfs:label"/>
             <xsl:apply-templates select="oac:motivatedBy"/>
             <a href="{@rdf:about}" class="oac_annotation_uri"  title="Annotation on {$target}">Permalink</a>
+            
             <div class="annotation">
                 <xsl:apply-templates select="oac:hasBody"/>
             </div>
