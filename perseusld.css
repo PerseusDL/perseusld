@@ -241,6 +241,7 @@
 	padding-bottom: 20px;
 	margin-bottom: 40px;
 	border-bottom: 2px dotted #555;
+        cursor: help;
 }
 .oac_annotation .oac_annotation_uri {
 	font-size: 10px;
